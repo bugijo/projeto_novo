@@ -1,0 +1,94 @@
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+
+# Configurações mínimas para desenvolvimento
+discovery.type: single-node
+bootstrap.memory_lock: true
+
+# Configurações de segurança
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
+
+# Configurações de monitoramento
+xpack.monitoring.collection.enabled: true
+
+# Configurações de recursos
+node.master: true
+node.data: true
+node.ingest: true
+node.ml: false
+
+# Limites de memória
+indices.memory.index_buffer_size: 10%
+indices.queries.cache.size: 5%
+
+# Configurações de path
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# Configurações de rede
+http.port: 9200
+transport.port: 9300
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+# Configurações de thread pool
+thread_pool:
+  write:
+    size: 4
+    queue_size: 1000
+  search:
+    size: 7
+    queue_size: 1000
+
+# Configurações de cache
+cache:
+  memory:
+    max_size: 1gb
+
+# Configurações de snapshot
+path.repo: /usr/share/elasticsearch/snapshots
+
+# Configurações de análise
+analysis:
+  analyzer:
+    default:
+      type: standard
+    brazilian:
+      type: brazilian
+
+# Configurações de índice
+index:
+  number_of_shards: 1
+  number_of_replicas: 0
+  refresh_interval: 30s
+
+# Configurações de cluster
+cluster:
+  routing:
+    allocation:
+      disk:
+        threshold_enabled: true
+        watermark:
+          low: 85%
+          high: 90%
+          flood_stage: 95%
+
+# Configurações de monitoramento de saúde
+monitor:
+  jvm:
+    gc:
+      enabled: true
+    refresh_interval: 1s
+  fs:
+    enabled: true
+    refresh_interval: 1s
+  os:
+    enabled: true
+    refresh_interval: 1s
+  process:
+    enabled: true
+    refresh_interval: 1s 

@@ -1,0 +1,250 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic:/etc/traefik/dynamic:ro
+      - ./acme.json:/etc/traefik/acme.json
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.localhost`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$H6uskkkW$$IgXLP6ewTrSuBkTrqE8wj/"
+
+  app:
+    build: .
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`app.localhost`)"
+      - "traefik.http.services.app.loadbalancer.server.port=5000"
+    volumes:
+      - .:/app
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=api.py
+      - FLASK_DEBUG=1
+      - PYTHONPATH=/app
+      - JAEGER_AGENT_HOST=jaeger
+      - JAEGER_AGENT_PORT=6831
+    command: poetry run python run.py --start --debug
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - prometheus
+      - grafana
+      - jaeger
+    logging:
+      driver: loki
+      options:
+        loki-url: "http://loki:3100/loki/api/v1/push"
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    volumes:
+      - redis_data:/data
+
+  prometheus:
+    image: prom/prometheus:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.rule=Host(`grafana.localhost`)"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+  loki:
+    image: grafana/loki:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.loki.rule=Host(`loki.localhost`)"
+      - "traefik.http.services.loki.loadbalancer.server.port=3100"
+    volumes:
+      - ./loki.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+
+  tempo:
+    image: grafana/tempo:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tempo.rule=Host(`tempo.localhost`)"
+      - "traefik.http.services.tempo.loadbalancer.server.port=3200"
+    volumes:
+      - ./tempo.yml:/etc/tempo/config.yml
+      - tempo_data:/tmp/tempo
+    command: -config.file=/etc/tempo/config.yml
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jaeger.rule=Host(`jaeger.localhost`)"
+      - "traefik.http.services.jaeger.loadbalancer.server.port=16686"
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+    volumes:
+      - ./jaeger.yml:/etc/jaeger/jaeger.yml
+      - jaeger_data:/badger
+    command:
+      - "--config-file=/etc/jaeger/jaeger.yml"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - elasticsearch_data:/usr/share/elasticsearch/data
+      - elasticsearch_logs:/usr/share/elasticsearch/logs
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    volumes:
+      - ./kafka.properties:/etc/kafka/server.properties
+      - kafka_data:/var/lib/kafka/data
+    depends_on:
+      - zookeeper
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    volumes:
+      - ./zookeeper.properties:/etc/kafka/zookeeper.properties
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_logs:/var/lib/zookeeper/log
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.alertmanager.rule=Host(`alertmanager.localhost`)"
+      - "traefik.http.services.alertmanager.loadbalancer.server.port=9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/config.yml
+      - alertmanager_data:/alertmanager
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cadvisor.rule=Host(`cadvisor.localhost`)"
+      - "traefik.http.services.cadvisor.loadbalancer.server.port=8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    networks:
+      - web
+    labels:
+      - "traefik.enable=false"
+    command:
+      - '-nginx.scrape-uri=http://nginx:8080/stub_status'
+
+networks:
+  web:
+    external: true
+
+volumes:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  tempo_data:
+  alertmanager_data:
+  elasticsearch_data:
+  elasticsearch_logs:
+  kafka_data:
+  zookeeper_data:
+  zookeeper_logs:
+  jaeger_data: 

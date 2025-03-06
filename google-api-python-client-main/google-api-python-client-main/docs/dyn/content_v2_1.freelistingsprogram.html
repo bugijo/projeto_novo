@@ -1,0 +1,157 @@
+<html><body>
+<style>
+
+body, h1, h2, h3, div, span, p, pre, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  font-size: 13px;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+pre, code {
+  line-height: 1.5;
+  font-family: Monaco, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Lucida Console', monospace;
+}
+
+pre {
+  margin-top: 0.5em;
+}
+
+h1, h2, h3, p {
+  font-family: Arial, sans serif;
+}
+
+h1, h2, h3 {
+  border-bottom: solid #CCC 1px;
+}
+
+.toc_element {
+  margin-top: 0.5em;
+}
+
+.firstline {
+  margin-left: 2 em;
+}
+
+.method  {
+  margin-top: 1em;
+  border: solid 1px #CCC;
+  padding: 1em;
+  background: #EEE;
+}
+
+.details {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+</style>
+
+<h1><a href="content_v2_1.html">Content API for Shopping</a> . <a href="content_v2_1.freelistingsprogram.html">freelistingsprogram</a></h1>
+<h2>Instance Methods</h2>
+<p class="toc_element">
+  <code><a href="content_v2_1.freelistingsprogram.checkoutsettings.html">checkoutsettings()</a></code>
+</p>
+<p class="firstline">Returns the checkoutsettings Resource.</p>
+
+<p class="toc_element">
+  <code><a href="#close">close()</a></code></p>
+<p class="firstline">Close httplib2 connections.</p>
+<p class="toc_element">
+  <code><a href="#get">get(merchantId, x__xgafv=None)</a></code></p>
+<p class="firstline">Retrieves the status and review eligibility for the free listing program. Returns errors and warnings if they require action to resolve, will become disapprovals, or impact impressions. Use `accountstatuses` to view all issues for an account.</p>
+<p class="toc_element">
+  <code><a href="#requestreview">requestreview(merchantId, body=None, x__xgafv=None)</a></code></p>
+<p class="firstline">Requests a review of free listings in a specific region. This method deprecated. Use the `MerchantSupportService` to view product and account issues and request a review.</p>
+<h3>Method Details</h3>
+<div class="method">
+    <code class="details" id="close">close()</code>
+  <pre>Close httplib2 connections.</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="get">get(merchantId, x__xgafv=None)</code>
+  <pre>Retrieves the status and review eligibility for the free listing program. Returns errors and warnings if they require action to resolve, will become disapprovals, or impact impressions. Use `accountstatuses` to view all issues for an account.
+
+Args:
+  merchantId: string, Required. The ID of the account. (required)
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+
+Returns:
+  An object of the form:
+
+    { # Response message for GetFreeListingsProgramStatus.
+  &quot;globalState&quot;: &quot;A String&quot;, # State of the program. `ENABLED` if there are offers for at least one region.
+  &quot;regionStatuses&quot;: [ # Status of the program in each region. Regions with the same status and review eligibility are grouped together in `regionCodes`.
+    { # Status of program and region.
+      &quot;disapprovalDate&quot;: &quot;A String&quot;, # Date by which eligibilityStatus will go from `WARNING` to `DISAPPROVED`. Only visible when your eligibilityStatus is WARNING. In [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DD`.
+      &quot;eligibilityStatus&quot;: &quot;A String&quot;, # Eligibility status of the standard free listing program.
+      &quot;onboardingIssues&quot;: [ # Issues that must be fixed to be eligible for review.
+        &quot;A String&quot;,
+      ],
+      &quot;regionCodes&quot;: [ # The two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) codes for all the regions with the same `eligibilityStatus` and `reviewEligibility`.
+        &quot;A String&quot;,
+      ],
+      &quot;reviewEligibilityStatus&quot;: &quot;A String&quot;, # If a program is eligible for review in a specific region. Only visible if `eligibilityStatus` is `DISAPPROVED`.
+      &quot;reviewIneligibilityReason&quot;: &quot;A String&quot;, # Review ineligibility reason if account is not eligible for review.
+      &quot;reviewIneligibilityReasonDescription&quot;: &quot;A String&quot;, # Reason a program in a specific region isn’t eligible for review. Only visible if `reviewEligibilityStatus` is `INELIGIBLE`.
+      &quot;reviewIneligibilityReasonDetails&quot;: { # Additional details for review ineligibility reasons. # Additional information for ineligibility. If `reviewIneligibilityReason` is `IN_COOLDOWN_PERIOD`, a timestamp for the end of the cooldown period is provided.
+        &quot;cooldownTime&quot;: &quot;A String&quot;, # This timestamp represents end of cooldown period for review ineligbility reason `IN_COOLDOWN_PERIOD`.
+      },
+      &quot;reviewIssues&quot;: [ # Issues evaluated in the review process. Fix all issues before requesting a review.
+        &quot;A String&quot;,
+      ],
+    },
+  ],
+}</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="requestreview">requestreview(merchantId, body=None, x__xgafv=None)</code>
+  <pre>Requests a review of free listings in a specific region. This method deprecated. Use the `MerchantSupportService` to view product and account issues and request a review.
+
+Args:
+  merchantId: string, Required. The ID of the account. (required)
+  body: object, The request body.
+    The object takes the form of:
+
+{ # Request message for the RequestReviewFreeListings Program method.
+  &quot;regionCode&quot;: &quot;A String&quot;, # The code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the country for which review is to be requested.
+}
+
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+</pre>
+</div>
+
+</body></html>

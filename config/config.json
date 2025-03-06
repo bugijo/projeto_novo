@@ -1,0 +1,44 @@
+{
+    "nome": "Jarvis",
+    "idioma": "pt-BR",
+    "voz_id": null,
+    "taxa_fala": 200,
+    "volume": 1.0,
+    "tema_interface": "dark",
+    "avatar": "default",
+    "porta_servidor": 5000,
+    "log": {
+        "nivel": "INFO",
+        "arquivo": "logs/assistente.log",
+        "formato": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "reconhecimento_voz": {
+        "ajuste_ruido": true,
+        "tempo_escuta": 5,
+        "energia_minima": 300,
+        "frases_ativacao": [
+            "ok jarvis",
+            "ei jarvis",
+            "jarvis"
+        ]
+    },
+    "automacao": {
+        "velocidade_mouse": 1.0,
+        "pausa_entre_acoes": 0.5,
+        "seguranca_ativa": true
+    },
+    "programacao": {
+        "modelo_codigo": "microsoft/CodeGPT-small-py",
+        "max_tokens": 200,
+        "temperatura": 0.7,
+        "estrutura_projeto": {
+            "pastas": ["src", "tests", "docs"],
+            "arquivos": ["README.md", "requirements.txt", "setup.py"]
+        }
+    },
+    "api": {
+        "cors_origins": ["*"],
+        "rate_limit": 100,
+        "timeout": 30
+    }
+} 

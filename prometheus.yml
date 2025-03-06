@@ -1,0 +1,80 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  scrape_timeout: 10s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+      scheme: http
+      timeout: 10s
+      api_version: v1
+
+rule_files:
+  - "rules/*.yml"
+
+scrape_configs:
+  - job_name: 'comfyui_integration'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['localhost:9090']
+    scheme: http
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['localhost:8080']
+
+  - job_name: 'flask'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['localhost:5000']
+
+  - job_name: 'comfyui'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['localhost:8188']
+
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['localhost:9113']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:6379']
+
+  - job_name: 'process'
+    static_configs:
+      - targets: ['localhost:9256']
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - 'localhost:9093'
+
+rules:
+  groups:
+    - name: example
+      rules:
+        - alert: HighRequestLatency
+          expr: job:request_latency_seconds:mean5m{job="comfyui_integration"} > 0.5
+          for: 10m
+          labels:
+            severity: page
+          annotations:
+            summary: High request latency on {{ $labels.instance }}
+            description: Request latency is above 500ms (current value is {{ $value }}s)
+
+        - alert: HighErrorRate
+          expr: job:request_errors:rate5m{job="comfyui_integration"} > 0.01
+          for: 10m
+          labels:
+            severity: page
+          annotations:
+            summary: High error rate on {{ $labels.instance }}
+            description: Error rate is above 1% (current value is {{ $value }}) 

@@ -1,0 +1,46 @@
+collector:
+  zipkin:
+    host-port: :9411
+  grpc:
+    host-port: :14250
+  http:
+    host-port: :14268
+
+query:
+  base-path: /jaeger
+  host-port: :16686
+
+agent:
+  host-port: :6831
+  http-server-host-port: :5778
+
+ingester:
+  kafka:
+    producer:
+      topic: jaeger-spans
+      brokers: kafka:9092
+    consumer:
+      topic: jaeger-spans
+      brokers: kafka:9092
+      group-id: jaeger-ingester
+
+storage:
+  type: elasticsearch
+  options:
+    es:
+      server-urls: http://elasticsearch:9200
+      username: elastic
+      password: changeme
+      index-prefix: jaeger
+
+metrics:
+  backend: prometheus
+  prometheus:
+    server-url: http://prometheus:9090
+
+sampling:
+  strategies-file: /etc/jaeger/sampling.json
+
+admin:
+  http:
+    host-port: :14269 

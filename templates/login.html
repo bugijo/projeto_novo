@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- CSS Base (sempre carregará) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    
+    <!-- CSS Opcional -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Fallback CSS caso o Tailwind não carregue -->
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #111827;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        
+        .login-card {
+            background-color: #1f2937;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            background-color: #374151;
+            border: 1px solid #4b5563;
+            border-radius: 0.375rem;
+            color: #e5e7eb;
+            box-sizing: border-box;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .login-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .login-btn:disabled {
+            background-color: #6b7280;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: #ef4444;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: rgba(239, 68, 68, 0.1);
+            border-radius: 0.25rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h1 class="text-2xl font-bold mb-6 text-center">Login</h1>
+        
+        <div id="errorMessage" class="error-message"></div>
+        
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div>
+                <label for="username">Usuário:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    class="input-field" 
+                    name="username" 
+                    required
+                >
+            </div>
+            <div>
+                <label for="password">Senha:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="input-field" 
+                    name="password" 
+                    required
+                >
+            </div>
+            <button type="submit" class="login-btn">
+                Entrar
+            </button>
+        </form>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginButton = document.querySelector('.login-btn');
+            
+            // Desabilita o botão durante o login
+            loginButton.disabled = true;
+            loginButton.textContent = 'Entrando...';
+            errorMessage.style.display = 'none';
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    // Redireciona para a página principal
+                    window.location.href = '/';
+                } else {
+                    // Mostra mensagem de erro
+                    errorMessage.textContent = data.error || 'Erro ao fazer login';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Erro de conexão';
+                errorMessage.style.display = 'block';
+                console.error('Erro:', error);
+            } finally {
+                // Reativa o botão
+                loginButton.disabled = false;
+                loginButton.textContent = 'Entrar';
+            }
+        }
+    </script>
+</body>
+</html> 

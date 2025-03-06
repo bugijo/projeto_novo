@@ -1,0 +1,36 @@
+{
+    "nodes": {
+        "1": {
+            "class_type": "Zero123",
+            "inputs": {
+                "image": ["2", 0],
+                "elevation": 0,
+                "azimuth": 0,
+                "seed": 123456789,
+                "steps": 30
+            }
+        },
+        "2": {
+            "class_type": "LoadImage",
+            "inputs": {
+                "image": "input.png"
+            }
+        },
+        "3": {
+            "class_type": "ImageToMesh",
+            "inputs": {
+                "image": ["1", 0],
+                "resolution": 256,
+                "smooth_iterations": 3
+            }
+        },
+        "4": {
+            "class_type": "SaveMesh",
+            "inputs": {
+                "mesh": ["3", 0],
+                "filename_prefix": "output",
+                "format": "obj"
+            }
+        }
+    }
+} 

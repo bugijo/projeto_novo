@@ -1,0 +1,309 @@
+/* Estilos personalizados além do Tailwind */
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1f2937; /* gray-800 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4b5563; /* gray-600 */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* gray-500 */
+}
+
+/* Animações */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Transições suaves */
+.transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Efeitos de hover melhorados */
+.hover-scale {
+    transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.02);
+}
+
+/* Sombras personalizadas */
+.shadow-glow {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); /* blue-500 */
+}
+
+.shadow-glow-hover:hover {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); /* blue-500 */
+}
+
+/* Gradientes */
+.bg-gradient-dark {
+    background: linear-gradient(to right, #111827, #1f2937); /* gray-900 to gray-800 */
+}
+
+.bg-gradient-blue {
+    background: linear-gradient(to right, #1d4ed8, #3b82f6); /* blue-700 to blue-500 */
+}
+
+/* Inputs personalizados */
+input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #4b5563; /* gray-600 */
+    border-radius: 4px;
+    background-color: #1f2937; /* gray-800 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #3b82f6; /* blue-500 */
+    border-color: #3b82f6; /* blue-500 */
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✓";
+    display: block;
+    text-align: center;
+    color: white;
+    line-height: 14px;
+    font-size: 12px;
+}
+
+/* Botões personalizados */
+.btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg 
+    transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 
+    focus:ring-blue-500 focus:ring-opacity-50;
+}
+
+.btn-secondary {
+    @apply bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg 
+    transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 
+    focus:ring-gray-500 focus:ring-opacity-50;
+}
+
+/* Cards personalizados */
+.card {
+    @apply bg-gray-800 rounded-lg p-6 shadow-xl hover:shadow-2xl 
+    transition-all duration-200 ease-in-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        @apply px-4;
+    }
+}
+
+/* Utilitários */
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(8px);
+}
+
+/* Estilos para o editor de código */
+.code-editor {
+    font-family: 'Fira Code', monospace;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+.code-editor .line-numbers {
+    @apply text-gray-500 select-none;
+}
+
+/* Estilos para o terminal */
+.terminal {
+    font-family: 'Fira Code', monospace;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.terminal-text {
+    color: #00ff00;
+}
+
+/* Estilos para notificações */
+.notification {
+    @apply fixed right-4 bottom-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg
+    transform transition-all duration-300 ease-in-out;
+}
+
+.notification.success {
+    @apply bg-green-600;
+}
+
+.notification.error {
+    @apply bg-red-600;
+}
+
+/* Estilos para tooltips */
+.tooltip {
+    @apply absolute invisible opacity-0 bg-gray-900 text-white text-sm py-1 px-2 rounded
+    transform -translate-y-2 transition-all duration-200;
+}
+
+.tooltip-trigger:hover .tooltip {
+    @apply visible opacity-100 -translate-y-0;
+}
+
+/* Estilos para loading spinners */
+.spinner {
+    @apply animate-spin rounded-full border-4 border-gray-300 border-t-blue-600
+    h-8 w-8;
+}
+
+/* Estilos para badges */
+.badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-blue {
+    @apply bg-blue-100 text-blue-800;
+}
+
+.badge-green {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-red {
+    @apply bg-red-100 text-red-800;
+}
+
+/* Estilos para tabs */
+.tabs {
+    @apply flex space-x-1 border-b border-gray-700;
+}
+
+.tab {
+    @apply px-4 py-2 text-sm font-medium text-gray-400 hover:text-white
+    border-b-2 border-transparent hover:border-gray-300 cursor-pointer;
+}
+
+.tab.active {
+    @apply text-white border-blue-500;
+}
+
+/* Estilos para modais */
+.modal-backdrop {
+    @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm;
+}
+
+.modal {
+    @apply fixed inset-0 flex items-center justify-center p-4;
+}
+
+.modal-content {
+    @apply bg-gray-800 rounded-lg shadow-xl max-w-md w-full mx-auto;
+}
+
+/* Estilos para forms */
+.form-group {
+    @apply space-y-2;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-300;
+}
+
+.form-input {
+    @apply w-full bg-gray-700 text-white px-4 py-2 rounded-lg
+    focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.form-select {
+    @apply w-full bg-gray-700 text-white px-4 py-2 rounded-lg
+    focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Estilos para menus dropdown */
+.dropdown {
+    @apply relative inline-block;
+}
+
+.dropdown-content {
+    @apply absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-800
+    ring-1 ring-black ring-opacity-5 invisible opacity-0
+    transform -translate-y-2 transition-all duration-200;
+}
+
+.dropdown:hover .dropdown-content {
+    @apply visible opacity-100 translate-y-0;
+}
+
+/* Estilos para breadcrumbs */
+.breadcrumbs {
+    @apply flex items-center space-x-2 text-sm text-gray-400;
+}
+
+.breadcrumb-item {
+    @apply hover:text-white transition-colors duration-200;
+}
+
+.breadcrumb-separator {
+    @apply text-gray-600;
+}
+
+/* Estilos para alertas */
+.alert {
+    @apply p-4 rounded-lg mb-4;
+}
+
+.alert-info {
+    @apply bg-blue-900 text-blue-200;
+}
+
+.alert-success {
+    @apply bg-green-900 text-green-200;
+}
+
+.alert-warning {
+    @apply bg-yellow-900 text-yellow-200;
+}
+
+.alert-error {
+    @apply bg-red-900 text-red-200;
+} 

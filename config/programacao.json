@@ -1,0 +1,358 @@
+{
+    "ambiente": {
+        "python_version": "3.9",
+        "virtualenv": true,
+        "pip_cache": true,
+        "path_variaveis": [],
+        "dependencias_padrao": [
+            "pytest",
+            "black",
+            "isort",
+            "pylint",
+            "coverage",
+            "rope",
+            "libcst",
+            "watchdog"
+        ]
+    },
+    "formatacao": {
+        "line_length": 88,
+        "indent": 4,
+        "multi_line_output": 3,
+        "include_trailing_comma": true,
+        "force_grid_wrap": 0,
+        "use_parentheses": true,
+        "ensure_newline_before_comments": true
+    },
+    "analise_codigo": {
+        "tempo_cache": 300,
+        "ignorar_arquivos": [
+            "__pycache__",
+            "*.pyc",
+            "venv",
+            "build",
+            "dist"
+        ],
+        "max_complexidade": 10,
+        "max_linhas_funcao": 50,
+        "max_argumentos": 5,
+        "verificacoes": {
+            "imports_nao_utilizados": true,
+            "variaveis_nao_utilizadas": true,
+            "complexidade_ciclomatica": true,
+            "duplicacao_codigo": true,
+            "tipos_faltando": true,
+            "docstrings_faltando": true
+        }
+    },
+    "sugestoes": {
+        "completacao": {
+            "ativo": true,
+            "max_sugestoes": 5,
+            "contexto_linhas": 5,
+            "temperatura": 0.7,
+            "filtrar_irrelevantes": true
+        },
+        "refatoracao": {
+            "ativo": true,
+            "sugerir_automaticamente": true,
+            "tipos": [
+                "extrair_funcao",
+                "renomear_simbolo",
+                "mover_funcao",
+                "extrair_classe",
+                "inline_variavel"
+            ]
+        },
+        "imports": {
+            "ativo": true,
+            "sugerir_typing": true,
+            "imports_comuns": {
+                "os": ["Path", "mkdir", "remove"],
+                "sys": ["argv", "exit"],
+                "typing": ["List", "Dict", "Optional"],
+                "datetime": ["datetime", "timedelta"],
+                "json": ["loads", "dumps"]
+            }
+        }
+    },
+    "testes": {
+        "framework": "pytest",
+        "cobertura_minima": 80,
+        "executar_antes_commit": true,
+        "ignorar_arquivos": [
+            "__init__.py",
+            "setup.py"
+        ],
+        "fixtures_padrao": true,
+        "geracao_automatica": {
+            "ativo": true,
+            "incluir_casos_borda": true,
+            "incluir_excecoes": true,
+            "cobertura_minima": 90
+        }
+    },
+    "git": {
+        "inicializar": true,
+        "commit_automatico": true,
+        "padrao_mensagem_commit": "feat: {descricao}",
+        "branches": {
+            "principal": "main",
+            "desenvolvimento": "develop",
+            "features": "feature/*",
+            "releases": "release/*"
+        },
+        "hooks": {
+            "pre-commit": ["testes", "formatacao", "lint"],
+            "pre-push": ["build"]
+        }
+    },
+    "documentacao": {
+        "framework": "sphinx",
+        "formato": "rst",
+        "gerar_automaticamente": true,
+        "incluir": {
+            "readme": true,
+            "changelog": true,
+            "api": true,
+            "exemplos": true
+        },
+        "tema": "sphinx_rtd_theme",
+        "geracao_automatica": {
+            "ativo": true,
+            "incluir_tipos": true,
+            "incluir_exemplos": true,
+            "incluir_referencias": true
+        }
+    },
+    "build": {
+        "executavel": {
+            "tipo": "onefile",
+            "console": false,
+            "icon": "assets/icon.ico",
+            "nome_arquivo": "{projeto}",
+            "incluir_dados": true
+        },
+        "wheel": {
+            "universal": false,
+            "incluir_testes": false,
+            "incluir_docs": true
+        },
+        "instalador": {
+            "tipo": "nsis",
+            "nome": "{projeto} Setup",
+            "versao": "1.0.0",
+            "empresa": "",
+            "website": "",
+            "licenca": "MIT"
+        }
+    },
+    "templates": {
+        "pasta_templates": "templates",
+        "variaveis_padrao": {
+            "autor": "",
+            "email": "",
+            "ano": 2024
+        }
+    },
+    "ia": {
+        "modelo_codigo": "microsoft/CodeGPT-small-py",
+        "modelo_arquitetura": "gpt2",
+        "openai_api_key": "",
+        "temperatura": 0.7,
+        "max_tokens": 500,
+        "sugestoes_codigo": true,
+        "completar_docstrings": true,
+        "gerar_testes": true,
+        "analise_semantica": {
+            "ativo": true,
+            "entender_contexto": true,
+            "sugerir_melhorias": true,
+            "identificar_padroes": true
+        }
+    },
+    "seguranca": {
+        "verificar_dependencias": true,
+        "analise_estatica": true,
+        "ferramentas": {
+            "bandit": true,
+            "safety": true
+        }
+    },
+    "logs": {
+        "nivel": "INFO",
+        "arquivo": "logs/programacao.log",
+        "formato": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        "rotacao": "daily",
+        "max_arquivos": 7
+    },
+    "preferencias": {
+        "tema": {
+            "padrao": "dark",
+            "opcoes": ["dark", "light"],
+            "atualizar_automaticamente": true
+        },
+        "interface": {
+            "fonte": {
+                "familia": "Consolas",
+                "tamanho": 12,
+                "estilo": "normal"
+            },
+            "cores": {
+                "dark": {
+                    "fundo": "#2b2b2b",
+                    "texto": "#ffffff",
+                    "destaque": "#4a9eff",
+                    "erro": "#ff4a4a",
+                    "aviso": "#ffaa4a",
+                    "sucesso": "#4aff4a"
+                },
+                "light": {
+                    "fundo": "#ffffff",
+                    "texto": "#000000",
+                    "destaque": "#0066cc",
+                    "erro": "#cc0000",
+                    "aviso": "#cc6600",
+                    "sucesso": "#00cc00"
+                }
+            },
+            "layout": {
+                "mostrar_numeros_linha": true,
+                "quebrar_linha": true,
+                "destacar_linha_atual": true,
+                "mostrar_espacos": true
+            }
+        },
+        "editor": {
+            "auto_indentacao": true,
+            "auto_completar": true,
+            "auto_fechar_tags": true,
+            "auto_fechar_chaves": true,
+            "destacar_sintaxe": true,
+            "sugestoes_tempo_real": true,
+            "formatacao_ao_salvar": true
+        },
+        "assistente": {
+            "sugestoes": {
+                "mostrar_automaticamente": true,
+                "max_sugestoes": 5,
+                "ordenar_por": "relevancia",
+                "incluir_exemplos": true
+            },
+            "analise": {
+                "tempo_real": true,
+                "intervalo_analise": 1000,
+                "nivel_detalhe": "alto",
+                "ignorar_arquivos": [
+                    "*.pyc",
+                    "__pycache__",
+                    "venv",
+                    "env"
+                ]
+            },
+            "notificacoes": {
+                "erros": true,
+                "avisos": true,
+                "sugestoes": true,
+                "atualizacoes": true
+            }
+        },
+        "perfil": {
+            "salvar_historico": true,
+            "max_historico": 1000,
+            "sincronizar": true,
+            "backup_automatico": true,
+            "intervalo_backup": 3600
+        },
+        "linguagens": {
+            "linguagem_padrao": "python",
+            "python": {
+                "extensoes": [".py", ".pyw", ".pyi"],
+                "formatador": "black",
+                "linter": "pylint",
+                "verificador_tipos": "mypy",
+                "opcoes": {
+                    "auto_import": true,
+                    "docstring": true,
+                    "anotacoes_tipo": true
+                }
+            },
+            "javascript": {
+                "extensoes": [".js", ".jsx", ".ts", ".tsx"],
+                "formatador": "prettier",
+                "linter": "eslint",
+                "verificador_tipos": "typescript",
+                "frameworks": ["react", "vue", "angular"],
+                "gerenciador_pacotes": "npm",
+                "opcoes": {
+                    "auto_import": true,
+                    "es6": true,
+                    "jsx": true
+                }
+            },
+            "html": {
+                "extensoes": [".html", ".htm", ".xhtml"],
+                "formatador": "prettier",
+                "linter": "htmlhint",
+                "opcoes": {
+                    "auto_fechar_tags": true,
+                    "sugestoes_elementos": true,
+                    "validacao_w3c": true
+                }
+            },
+            "css": {
+                "extensoes": [".css", ".scss", ".sass", ".less"],
+                "formatador": "prettier",
+                "linter": "stylelint",
+                "preprocessadores": ["sass", "less"],
+                "opcoes": {
+                    "auto_prefixo": true,
+                    "sugestoes_propriedades": true
+                }
+            },
+            "java": {
+                "extensoes": [".java"],
+                "formatador": "google-java-format",
+                "linter": "checkstyle",
+                "compilador": "javac",
+                "versao": "17",
+                "gerenciador_pacotes": "maven",
+                "opcoes": {
+                    "auto_import": true
+                }
+            },
+            "cpp": {
+                "extensoes": [".cpp", ".hpp", ".h", ".c"],
+                "formatador": "clang-format",
+                "linter": "cppcheck",
+                "compilador": "g++",
+                "padrao": "c++17",
+                "gerenciador_pacotes": "vcpkg",
+                "opcoes": {
+                    "auto_include": true
+                }
+            }
+        },
+        "associacoes_arquivo": {
+            ".py": "python",
+            ".pyw": "python",
+            ".pyi": "python",
+            ".js": "javascript",
+            ".jsx": "javascript",
+            ".ts": "javascript",
+            ".tsx": "javascript",
+            ".html": "html",
+            ".htm": "html",
+            ".xhtml": "html",
+            ".css": "css",
+            ".scss": "css",
+            ".sass": "css",
+            ".less": "css",
+            ".java": "java",
+            ".cpp": "cpp",
+            ".hpp": "cpp",
+            ".h": "cpp",
+            ".c": "cpp"
+        }
+    }
+} 

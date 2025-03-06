@@ -1,0 +1,469 @@
+<html><body>
+<style>
+
+body, h1, h2, h3, div, span, p, pre, a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  font-size: 13px;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 26px;
+  margin-bottom: 1em;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+pre, code {
+  line-height: 1.5;
+  font-family: Monaco, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Lucida Console', monospace;
+}
+
+pre {
+  margin-top: 0.5em;
+}
+
+h1, h2, h3, p {
+  font-family: Arial, sans serif;
+}
+
+h1, h2, h3 {
+  border-bottom: solid #CCC 1px;
+}
+
+.toc_element {
+  margin-top: 0.5em;
+}
+
+.firstline {
+  margin-left: 2 em;
+}
+
+.method  {
+  margin-top: 1em;
+  border: solid 1px #CCC;
+  padding: 1em;
+  background: #EEE;
+}
+
+.details {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+</style>
+
+<h1><a href="run_v1.html">Cloud Run Admin API</a> . <a href="run_v1.projects.html">projects</a> . <a href="run_v1.projects.locations.html">locations</a> . <a href="run_v1.projects.locations.domainmappings.html">domainmappings</a></h1>
+<h2>Instance Methods</h2>
+<p class="toc_element">
+  <code><a href="#close">close()</a></code></p>
+<p class="firstline">Close httplib2 connections.</p>
+<p class="toc_element">
+  <code><a href="#create">create(parent, body=None, dryRun=None, x__xgafv=None)</a></code></p>
+<p class="firstline">Create a new domain mapping.</p>
+<p class="toc_element">
+  <code><a href="#delete">delete(name, apiVersion=None, dryRun=None, kind=None, propagationPolicy=None, x__xgafv=None)</a></code></p>
+<p class="firstline">Delete a domain mapping.</p>
+<p class="toc_element">
+  <code><a href="#get">get(name, x__xgafv=None)</a></code></p>
+<p class="firstline">Get information about a domain mapping.</p>
+<p class="toc_element">
+  <code><a href="#list">list(parent, continue=None, fieldSelector=None, includeUninitialized=None, labelSelector=None, limit=None, resourceVersion=None, watch=None, x__xgafv=None)</a></code></p>
+<p class="firstline">List all domain mappings.</p>
+<h3>Method Details</h3>
+<div class="method">
+    <code class="details" id="close">close()</code>
+  <pre>Close httplib2 connections.</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="create">create(parent, body=None, dryRun=None, x__xgafv=None)</code>
+  <pre>Create a new domain mapping.
+
+Args:
+  parent: string, Required. The namespace in which the domain mapping should be created. For Cloud Run (fully managed), replace {namespace} with the project ID or number. It takes the form namespaces/{namespace}. For example: namespaces/PROJECT_ID (required)
+  body: object, The request body.
+    The object takes the form of:
+
+{ # Resource to hold the state and status of a user&#x27;s domain mapping. NOTE: This resource is currently in Beta.
+  &quot;apiVersion&quot;: &quot;A String&quot;, # The API version for this call such as &quot;domains.cloudrun.com/v1&quot;.
+  &quot;kind&quot;: &quot;A String&quot;, # The kind of resource, in this case &quot;DomainMapping&quot;.
+  &quot;metadata&quot;: { # google.cloud.run.meta.v1.ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. # Metadata associated with this BuildTemplate.
+    &quot;annotations&quot;: { # Unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. In Cloud Run, annotations with &#x27;run.googleapis.com/&#x27; and &#x27;autoscaling.knative.dev&#x27; are restricted, and the accepted annotations will be different depending on the resource type. * `autoscaling.knative.dev/maxScale`: Revision. * `autoscaling.knative.dev/minScale`: Revision. * `run.googleapis.com/base-images`: Service, Revision. * `run.googleapis.com/binary-authorization-breakglass`: Service, Job, * `run.googleapis.com/binary-authorization`: Service, Job, Execution. * `run.googleapis.com/build-base-image`: Service. * `run.googleapis.com/build-enable-automatic-updates`: Service. * `run.googleapis.com/build-environment-variables`: Service. * `run.googleapis.com/build-function-target`: Service. * `run.googleapis.com/build-id`: Service. * `run.googleapis.com/build-image-uri`: Service. * `run.googleapis.com/build-name`: Service. * `run.googleapis.com/build-service-account`: Service. * `run.googleapis.com/build-source-location`: Service. * `run.googleapis.com/build-worker-pool`: Service. * `run.googleapis.com/client-name`: All resources. * `run.googleapis.com/cloudsql-instances`: Revision, Execution. * `run.googleapis.com/container-dependencies`: Revision . * `run.googleapis.com/cpu-throttling`: Revision. * `run.googleapis.com/custom-audiences`: Service. * `run.googleapis.com/default-url-disabled`: Service. * `run.googleapis.com/description`: Service. * `run.googleapis.com/encryption-key-shutdown-hours`: Revision * `run.googleapis.com/encryption-key`: Revision, Execution. * `run.googleapis.com/execution-environment`: Revision, Execution. * `run.googleapis.com/gc-traffic-tags`: Service. * `run.googleapis.com/health-check-disabled`: Revision. * `run.googleapis.com/ingress`: Service. * `run.googleapis.com/launch-stage`: Service, Job. * `run.googleapis.com/minScale`: Service * `run.googleapis.com/network-interfaces`: Revision, Execution. * `run.googleapis.com/post-key-revocation-action-type`: Revision. * `run.googleapis.com/secrets`: Revision, Execution. * `run.googleapis.com/secure-session-agent`: Revision. * `run.googleapis.com/sessionAffinity`: Revision. * `run.googleapis.com/startup-cpu-boost`: Revision. * `run.googleapis.com/vpc-access-connector`: Revision, Execution. * `run.googleapis.com/vpc-access-egress`: Revision, Execution.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;clusterName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;creationTimestamp&quot;: &quot;A String&quot;, # UTC timestamp representing the server time when this object was created.
+    &quot;deletionGracePeriodSeconds&quot;: 42, # Not supported by Cloud Run
+    &quot;deletionTimestamp&quot;: &quot;A String&quot;, # The read-only soft deletion timestamp for this resource. In Cloud Run, users are not able to set this field. Instead, they must call the corresponding Delete API.
+    &quot;finalizers&quot;: [ # Not supported by Cloud Run
+      &quot;A String&quot;,
+    ],
+    &quot;generateName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;generation&quot;: 42, # A system-provided sequence number representing a specific generation of the desired state.
+    &quot;labels&quot;: { # Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and routes.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;name&quot;: &quot;A String&quot;, # Required. The name of the resource. Name is required when creating top-level resources (Service, Job), must be unique within a Cloud Run project/region, and cannot be changed once created.
+    &quot;namespace&quot;: &quot;A String&quot;, # Required. Defines the space within each name must be unique within a Cloud Run region. In Cloud Run, it must be project ID or number.
+    &quot;ownerReferences&quot;: [ # Not supported by Cloud Run
+      { # This is not supported or used by Cloud Run.
+        &quot;apiVersion&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;blockOwnerDeletion&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;controller&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;kind&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;name&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;uid&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+      },
+    ],
+    &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque, system-generated value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server or omit the value to disable conflict-detection.
+    &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+    &quot;uid&quot;: &quot;A String&quot;, # Unique, system-generated identifier for this resource.
+  },
+  &quot;spec&quot;: { # The desired state of the Domain Mapping. # The spec for this DomainMapping.
+    &quot;certificateMode&quot;: &quot;A String&quot;, # The mode of the certificate.
+    &quot;forceOverride&quot;: True or False, # If set, the mapping will override any mapping set before this spec was set. It is recommended that the user leaves this empty to receive an error warning about a potential conflict and only set it once the respective UI has given such a warning.
+    &quot;routeName&quot;: &quot;A String&quot;, # The name of the Knative Route that this DomainMapping applies to. The route must exist.
+  },
+  &quot;status&quot;: { # The current state of the Domain Mapping. # The current status of the DomainMapping.
+    &quot;conditions&quot;: [ # Array of observed DomainMappingConditions, indicating the current state of the DomainMapping.
+      { # Conditions show the status of reconciliation progress on a given resource. Most resource use a top-level condition type &quot;Ready&quot; or &quot;Completed&quot; to show overall status with other conditions to checkpoint each stage of reconciliation. Note that if metadata.Generation does not equal status.ObservedGeneration, the conditions shown may not be relevant for the current spec.
+        &quot;lastTransitionTime&quot;: &quot;A String&quot;, # Optional. Last time the condition transitioned from one status to another.
+        &quot;message&quot;: &quot;A String&quot;, # Optional. Human readable message indicating details about the current status.
+        &quot;reason&quot;: &quot;A String&quot;, # Optional. One-word CamelCase reason for the condition&#x27;s last transition. These are intended to be stable, unique values which the client may use to trigger error handling logic, whereas messages which may be changed later by the server.
+        &quot;severity&quot;: &quot;A String&quot;, # Optional. How to interpret this condition. One of Error, Warning, or Info. Conditions of severity Info do not contribute to resource readiness.
+        &quot;status&quot;: &quot;A String&quot;, # Status of the condition, one of True, False, Unknown.
+        &quot;type&quot;: &quot;A String&quot;, # type is used to communicate the status of the reconciliation process. Types common to all resources include: * &quot;Ready&quot; or &quot;Completed&quot;: True when the Resource is ready.
+      },
+    ],
+    &quot;mappedRouteName&quot;: &quot;A String&quot;, # The name of the route that the mapping currently points to.
+    &quot;observedGeneration&quot;: 42, # ObservedGeneration is the &#x27;Generation&#x27; of the DomainMapping that was last processed by the controller. Clients polling for completed reconciliation should poll until observedGeneration = metadata.generation and the Ready condition&#x27;s status is True or False.
+    &quot;resourceRecords&quot;: [ # The resource records required to configure this domain mapping. These records must be added to the domain&#x27;s DNS configuration in order to serve the application via this domain mapping.
+      { # A DNS resource record.
+        &quot;name&quot;: &quot;A String&quot;, # Relative name of the object affected by this record. Only applicable for `CNAME` records. Example: &#x27;www&#x27;.
+        &quot;rrdata&quot;: &quot;A String&quot;, # Data for this record. Values vary by record type, as defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1).
+        &quot;type&quot;: &quot;A String&quot;, # Resource record type. Example: `AAAA`.
+      },
+    ],
+    &quot;url&quot;: &quot;A String&quot;, # Optional. Not supported by Cloud Run.
+  },
+}
+
+  dryRun: string, Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+
+Returns:
+  An object of the form:
+
+    { # Resource to hold the state and status of a user&#x27;s domain mapping. NOTE: This resource is currently in Beta.
+  &quot;apiVersion&quot;: &quot;A String&quot;, # The API version for this call such as &quot;domains.cloudrun.com/v1&quot;.
+  &quot;kind&quot;: &quot;A String&quot;, # The kind of resource, in this case &quot;DomainMapping&quot;.
+  &quot;metadata&quot;: { # google.cloud.run.meta.v1.ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. # Metadata associated with this BuildTemplate.
+    &quot;annotations&quot;: { # Unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. In Cloud Run, annotations with &#x27;run.googleapis.com/&#x27; and &#x27;autoscaling.knative.dev&#x27; are restricted, and the accepted annotations will be different depending on the resource type. * `autoscaling.knative.dev/maxScale`: Revision. * `autoscaling.knative.dev/minScale`: Revision. * `run.googleapis.com/base-images`: Service, Revision. * `run.googleapis.com/binary-authorization-breakglass`: Service, Job, * `run.googleapis.com/binary-authorization`: Service, Job, Execution. * `run.googleapis.com/build-base-image`: Service. * `run.googleapis.com/build-enable-automatic-updates`: Service. * `run.googleapis.com/build-environment-variables`: Service. * `run.googleapis.com/build-function-target`: Service. * `run.googleapis.com/build-id`: Service. * `run.googleapis.com/build-image-uri`: Service. * `run.googleapis.com/build-name`: Service. * `run.googleapis.com/build-service-account`: Service. * `run.googleapis.com/build-source-location`: Service. * `run.googleapis.com/build-worker-pool`: Service. * `run.googleapis.com/client-name`: All resources. * `run.googleapis.com/cloudsql-instances`: Revision, Execution. * `run.googleapis.com/container-dependencies`: Revision . * `run.googleapis.com/cpu-throttling`: Revision. * `run.googleapis.com/custom-audiences`: Service. * `run.googleapis.com/default-url-disabled`: Service. * `run.googleapis.com/description`: Service. * `run.googleapis.com/encryption-key-shutdown-hours`: Revision * `run.googleapis.com/encryption-key`: Revision, Execution. * `run.googleapis.com/execution-environment`: Revision, Execution. * `run.googleapis.com/gc-traffic-tags`: Service. * `run.googleapis.com/health-check-disabled`: Revision. * `run.googleapis.com/ingress`: Service. * `run.googleapis.com/launch-stage`: Service, Job. * `run.googleapis.com/minScale`: Service * `run.googleapis.com/network-interfaces`: Revision, Execution. * `run.googleapis.com/post-key-revocation-action-type`: Revision. * `run.googleapis.com/secrets`: Revision, Execution. * `run.googleapis.com/secure-session-agent`: Revision. * `run.googleapis.com/sessionAffinity`: Revision. * `run.googleapis.com/startup-cpu-boost`: Revision. * `run.googleapis.com/vpc-access-connector`: Revision, Execution. * `run.googleapis.com/vpc-access-egress`: Revision, Execution.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;clusterName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;creationTimestamp&quot;: &quot;A String&quot;, # UTC timestamp representing the server time when this object was created.
+    &quot;deletionGracePeriodSeconds&quot;: 42, # Not supported by Cloud Run
+    &quot;deletionTimestamp&quot;: &quot;A String&quot;, # The read-only soft deletion timestamp for this resource. In Cloud Run, users are not able to set this field. Instead, they must call the corresponding Delete API.
+    &quot;finalizers&quot;: [ # Not supported by Cloud Run
+      &quot;A String&quot;,
+    ],
+    &quot;generateName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;generation&quot;: 42, # A system-provided sequence number representing a specific generation of the desired state.
+    &quot;labels&quot;: { # Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and routes.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;name&quot;: &quot;A String&quot;, # Required. The name of the resource. Name is required when creating top-level resources (Service, Job), must be unique within a Cloud Run project/region, and cannot be changed once created.
+    &quot;namespace&quot;: &quot;A String&quot;, # Required. Defines the space within each name must be unique within a Cloud Run region. In Cloud Run, it must be project ID or number.
+    &quot;ownerReferences&quot;: [ # Not supported by Cloud Run
+      { # This is not supported or used by Cloud Run.
+        &quot;apiVersion&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;blockOwnerDeletion&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;controller&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;kind&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;name&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;uid&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+      },
+    ],
+    &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque, system-generated value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server or omit the value to disable conflict-detection.
+    &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+    &quot;uid&quot;: &quot;A String&quot;, # Unique, system-generated identifier for this resource.
+  },
+  &quot;spec&quot;: { # The desired state of the Domain Mapping. # The spec for this DomainMapping.
+    &quot;certificateMode&quot;: &quot;A String&quot;, # The mode of the certificate.
+    &quot;forceOverride&quot;: True or False, # If set, the mapping will override any mapping set before this spec was set. It is recommended that the user leaves this empty to receive an error warning about a potential conflict and only set it once the respective UI has given such a warning.
+    &quot;routeName&quot;: &quot;A String&quot;, # The name of the Knative Route that this DomainMapping applies to. The route must exist.
+  },
+  &quot;status&quot;: { # The current state of the Domain Mapping. # The current status of the DomainMapping.
+    &quot;conditions&quot;: [ # Array of observed DomainMappingConditions, indicating the current state of the DomainMapping.
+      { # Conditions show the status of reconciliation progress on a given resource. Most resource use a top-level condition type &quot;Ready&quot; or &quot;Completed&quot; to show overall status with other conditions to checkpoint each stage of reconciliation. Note that if metadata.Generation does not equal status.ObservedGeneration, the conditions shown may not be relevant for the current spec.
+        &quot;lastTransitionTime&quot;: &quot;A String&quot;, # Optional. Last time the condition transitioned from one status to another.
+        &quot;message&quot;: &quot;A String&quot;, # Optional. Human readable message indicating details about the current status.
+        &quot;reason&quot;: &quot;A String&quot;, # Optional. One-word CamelCase reason for the condition&#x27;s last transition. These are intended to be stable, unique values which the client may use to trigger error handling logic, whereas messages which may be changed later by the server.
+        &quot;severity&quot;: &quot;A String&quot;, # Optional. How to interpret this condition. One of Error, Warning, or Info. Conditions of severity Info do not contribute to resource readiness.
+        &quot;status&quot;: &quot;A String&quot;, # Status of the condition, one of True, False, Unknown.
+        &quot;type&quot;: &quot;A String&quot;, # type is used to communicate the status of the reconciliation process. Types common to all resources include: * &quot;Ready&quot; or &quot;Completed&quot;: True when the Resource is ready.
+      },
+    ],
+    &quot;mappedRouteName&quot;: &quot;A String&quot;, # The name of the route that the mapping currently points to.
+    &quot;observedGeneration&quot;: 42, # ObservedGeneration is the &#x27;Generation&#x27; of the DomainMapping that was last processed by the controller. Clients polling for completed reconciliation should poll until observedGeneration = metadata.generation and the Ready condition&#x27;s status is True or False.
+    &quot;resourceRecords&quot;: [ # The resource records required to configure this domain mapping. These records must be added to the domain&#x27;s DNS configuration in order to serve the application via this domain mapping.
+      { # A DNS resource record.
+        &quot;name&quot;: &quot;A String&quot;, # Relative name of the object affected by this record. Only applicable for `CNAME` records. Example: &#x27;www&#x27;.
+        &quot;rrdata&quot;: &quot;A String&quot;, # Data for this record. Values vary by record type, as defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1).
+        &quot;type&quot;: &quot;A String&quot;, # Resource record type. Example: `AAAA`.
+      },
+    ],
+    &quot;url&quot;: &quot;A String&quot;, # Optional. Not supported by Cloud Run.
+  },
+}</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="delete">delete(name, apiVersion=None, dryRun=None, kind=None, propagationPolicy=None, x__xgafv=None)</code>
+  <pre>Delete a domain mapping.
+
+Args:
+  name: string, Required. The name of the domain mapping to delete. For Cloud Run (fully managed), replace {namespace} with the project ID or number. It takes the form namespaces/{namespace}. For example: namespaces/PROJECT_ID (required)
+  apiVersion: string, Cloud Run currently ignores this parameter.
+  dryRun: string, Indicates that the server should validate the request and populate default values without persisting the request. Supported values: `all`
+  kind: string, Cloud Run currently ignores this parameter.
+  propagationPolicy: string, Specifies the propagation policy of delete. Cloud Run currently ignores this setting, and deletes in the background. Please see kubernetes.io/docs/concepts/architecture/garbage-collection/ for more information.
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+
+Returns:
+  An object of the form:
+
+    { # Status is a return value for calls that don&#x27;t return other objects.
+  &quot;code&quot;: 42, # Suggested HTTP return code for this status, 0 if not set.
+  &quot;details&quot;: { # StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined. # Extended data associated with the reason. Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
+    &quot;causes&quot;: [ # The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
+      { # StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
+        &quot;field&quot;: &quot;A String&quot;, # The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed. Fields may appear more than once in an array of causes due to fields having multiple errors. Examples: &quot;name&quot; - the field &quot;name&quot; on the current resource &quot;items[0].name&quot; - the field &quot;name&quot; on the first array entry in &quot;items&quot;
+        &quot;message&quot;: &quot;A String&quot;, # A human-readable description of the cause of the error. This field may be presented as-is to a reader.
+        &quot;reason&quot;: &quot;A String&quot;, # A machine-readable description of the cause of the error. If this value is empty there is no information available.
+      },
+    ],
+    &quot;group&quot;: &quot;A String&quot;, # The group attribute of the resource associated with the status StatusReason.
+    &quot;kind&quot;: &quot;A String&quot;, # The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind.
+    &quot;name&quot;: &quot;A String&quot;, # The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
+    &quot;retryAfterSeconds&quot;: 42, # If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
+    &quot;uid&quot;: &quot;A String&quot;, # UID of the resource. (when there is a single resource which can be described).
+  },
+  &quot;message&quot;: &quot;A String&quot;, # A human-readable description of the status of this operation.
+  &quot;metadata&quot;: { # Metadata for synthetic resources like List. In Cloud Run, all List Resources Responses will have a ListMeta instead of ObjectMeta. # Standard list metadata.
+    &quot;continue&quot;: &quot;A String&quot;, # Continuation token is a value emitted when the count of items is larger than the user/system limit. To retrieve the next page of items, pass the value of `continue` as the next request&#x27;s `page_token`.
+    &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque string that identifies the server&#x27;s internal version of this object. It can be used by clients to determine when objects have changed. If the message is passed back to the server, it must be left unmodified.
+    &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+  },
+  &quot;reason&quot;: &quot;A String&quot;, # A machine-readable description of why this operation is in the &quot;Failure&quot; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
+  &quot;status&quot;: &quot;A String&quot;, # Status of the operation. One of: &quot;Success&quot; or &quot;Failure&quot;.
+}</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="get">get(name, x__xgafv=None)</code>
+  <pre>Get information about a domain mapping.
+
+Args:
+  name: string, Required. The name of the domain mapping to retrieve. For Cloud Run (fully managed), replace {namespace} with the project ID or number. It takes the form namespaces/{namespace}. For example: namespaces/PROJECT_ID (required)
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+
+Returns:
+  An object of the form:
+
+    { # Resource to hold the state and status of a user&#x27;s domain mapping. NOTE: This resource is currently in Beta.
+  &quot;apiVersion&quot;: &quot;A String&quot;, # The API version for this call such as &quot;domains.cloudrun.com/v1&quot;.
+  &quot;kind&quot;: &quot;A String&quot;, # The kind of resource, in this case &quot;DomainMapping&quot;.
+  &quot;metadata&quot;: { # google.cloud.run.meta.v1.ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. # Metadata associated with this BuildTemplate.
+    &quot;annotations&quot;: { # Unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. In Cloud Run, annotations with &#x27;run.googleapis.com/&#x27; and &#x27;autoscaling.knative.dev&#x27; are restricted, and the accepted annotations will be different depending on the resource type. * `autoscaling.knative.dev/maxScale`: Revision. * `autoscaling.knative.dev/minScale`: Revision. * `run.googleapis.com/base-images`: Service, Revision. * `run.googleapis.com/binary-authorization-breakglass`: Service, Job, * `run.googleapis.com/binary-authorization`: Service, Job, Execution. * `run.googleapis.com/build-base-image`: Service. * `run.googleapis.com/build-enable-automatic-updates`: Service. * `run.googleapis.com/build-environment-variables`: Service. * `run.googleapis.com/build-function-target`: Service. * `run.googleapis.com/build-id`: Service. * `run.googleapis.com/build-image-uri`: Service. * `run.googleapis.com/build-name`: Service. * `run.googleapis.com/build-service-account`: Service. * `run.googleapis.com/build-source-location`: Service. * `run.googleapis.com/build-worker-pool`: Service. * `run.googleapis.com/client-name`: All resources. * `run.googleapis.com/cloudsql-instances`: Revision, Execution. * `run.googleapis.com/container-dependencies`: Revision . * `run.googleapis.com/cpu-throttling`: Revision. * `run.googleapis.com/custom-audiences`: Service. * `run.googleapis.com/default-url-disabled`: Service. * `run.googleapis.com/description`: Service. * `run.googleapis.com/encryption-key-shutdown-hours`: Revision * `run.googleapis.com/encryption-key`: Revision, Execution. * `run.googleapis.com/execution-environment`: Revision, Execution. * `run.googleapis.com/gc-traffic-tags`: Service. * `run.googleapis.com/health-check-disabled`: Revision. * `run.googleapis.com/ingress`: Service. * `run.googleapis.com/launch-stage`: Service, Job. * `run.googleapis.com/minScale`: Service * `run.googleapis.com/network-interfaces`: Revision, Execution. * `run.googleapis.com/post-key-revocation-action-type`: Revision. * `run.googleapis.com/secrets`: Revision, Execution. * `run.googleapis.com/secure-session-agent`: Revision. * `run.googleapis.com/sessionAffinity`: Revision. * `run.googleapis.com/startup-cpu-boost`: Revision. * `run.googleapis.com/vpc-access-connector`: Revision, Execution. * `run.googleapis.com/vpc-access-egress`: Revision, Execution.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;clusterName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;creationTimestamp&quot;: &quot;A String&quot;, # UTC timestamp representing the server time when this object was created.
+    &quot;deletionGracePeriodSeconds&quot;: 42, # Not supported by Cloud Run
+    &quot;deletionTimestamp&quot;: &quot;A String&quot;, # The read-only soft deletion timestamp for this resource. In Cloud Run, users are not able to set this field. Instead, they must call the corresponding Delete API.
+    &quot;finalizers&quot;: [ # Not supported by Cloud Run
+      &quot;A String&quot;,
+    ],
+    &quot;generateName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+    &quot;generation&quot;: 42, # A system-provided sequence number representing a specific generation of the desired state.
+    &quot;labels&quot;: { # Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and routes.
+      &quot;a_key&quot;: &quot;A String&quot;,
+    },
+    &quot;name&quot;: &quot;A String&quot;, # Required. The name of the resource. Name is required when creating top-level resources (Service, Job), must be unique within a Cloud Run project/region, and cannot be changed once created.
+    &quot;namespace&quot;: &quot;A String&quot;, # Required. Defines the space within each name must be unique within a Cloud Run region. In Cloud Run, it must be project ID or number.
+    &quot;ownerReferences&quot;: [ # Not supported by Cloud Run
+      { # This is not supported or used by Cloud Run.
+        &quot;apiVersion&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;blockOwnerDeletion&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;controller&quot;: True or False, # This is not supported or used by Cloud Run.
+        &quot;kind&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;name&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+        &quot;uid&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+      },
+    ],
+    &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque, system-generated value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server or omit the value to disable conflict-detection.
+    &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+    &quot;uid&quot;: &quot;A String&quot;, # Unique, system-generated identifier for this resource.
+  },
+  &quot;spec&quot;: { # The desired state of the Domain Mapping. # The spec for this DomainMapping.
+    &quot;certificateMode&quot;: &quot;A String&quot;, # The mode of the certificate.
+    &quot;forceOverride&quot;: True or False, # If set, the mapping will override any mapping set before this spec was set. It is recommended that the user leaves this empty to receive an error warning about a potential conflict and only set it once the respective UI has given such a warning.
+    &quot;routeName&quot;: &quot;A String&quot;, # The name of the Knative Route that this DomainMapping applies to. The route must exist.
+  },
+  &quot;status&quot;: { # The current state of the Domain Mapping. # The current status of the DomainMapping.
+    &quot;conditions&quot;: [ # Array of observed DomainMappingConditions, indicating the current state of the DomainMapping.
+      { # Conditions show the status of reconciliation progress on a given resource. Most resource use a top-level condition type &quot;Ready&quot; or &quot;Completed&quot; to show overall status with other conditions to checkpoint each stage of reconciliation. Note that if metadata.Generation does not equal status.ObservedGeneration, the conditions shown may not be relevant for the current spec.
+        &quot;lastTransitionTime&quot;: &quot;A String&quot;, # Optional. Last time the condition transitioned from one status to another.
+        &quot;message&quot;: &quot;A String&quot;, # Optional. Human readable message indicating details about the current status.
+        &quot;reason&quot;: &quot;A String&quot;, # Optional. One-word CamelCase reason for the condition&#x27;s last transition. These are intended to be stable, unique values which the client may use to trigger error handling logic, whereas messages which may be changed later by the server.
+        &quot;severity&quot;: &quot;A String&quot;, # Optional. How to interpret this condition. One of Error, Warning, or Info. Conditions of severity Info do not contribute to resource readiness.
+        &quot;status&quot;: &quot;A String&quot;, # Status of the condition, one of True, False, Unknown.
+        &quot;type&quot;: &quot;A String&quot;, # type is used to communicate the status of the reconciliation process. Types common to all resources include: * &quot;Ready&quot; or &quot;Completed&quot;: True when the Resource is ready.
+      },
+    ],
+    &quot;mappedRouteName&quot;: &quot;A String&quot;, # The name of the route that the mapping currently points to.
+    &quot;observedGeneration&quot;: 42, # ObservedGeneration is the &#x27;Generation&#x27; of the DomainMapping that was last processed by the controller. Clients polling for completed reconciliation should poll until observedGeneration = metadata.generation and the Ready condition&#x27;s status is True or False.
+    &quot;resourceRecords&quot;: [ # The resource records required to configure this domain mapping. These records must be added to the domain&#x27;s DNS configuration in order to serve the application via this domain mapping.
+      { # A DNS resource record.
+        &quot;name&quot;: &quot;A String&quot;, # Relative name of the object affected by this record. Only applicable for `CNAME` records. Example: &#x27;www&#x27;.
+        &quot;rrdata&quot;: &quot;A String&quot;, # Data for this record. Values vary by record type, as defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1).
+        &quot;type&quot;: &quot;A String&quot;, # Resource record type. Example: `AAAA`.
+      },
+    ],
+    &quot;url&quot;: &quot;A String&quot;, # Optional. Not supported by Cloud Run.
+  },
+}</pre>
+</div>
+
+<div class="method">
+    <code class="details" id="list">list(parent, continue=None, fieldSelector=None, includeUninitialized=None, labelSelector=None, limit=None, resourceVersion=None, watch=None, x__xgafv=None)</code>
+  <pre>List all domain mappings.
+
+Args:
+  parent: string, Required. The namespace from which the domain mappings should be listed. For Cloud Run (fully managed), replace {namespace} with the project ID or number. It takes the form namespaces/{namespace}. For example: namespaces/PROJECT_ID (required)
+  continue: string, Optional. Encoded string to continue paging.
+  fieldSelector: string, Allows to filter resources based on a specific value for a field name. Send this in a query string format. i.e. &#x27;metadata.name%3Dlorem&#x27;. Not currently used by Cloud Run.
+  includeUninitialized: boolean, Not currently used by Cloud Run.
+  labelSelector: string, Allows to filter resources based on a label. Supported operations are =, !=, exists, in, and notIn.
+  limit: integer, Optional. The maximum number of records that should be returned.
+  resourceVersion: string, The baseline resource version from which the list or watch operation should start. Not currently used by Cloud Run.
+  watch: boolean, Flag that indicates that the client expects to watch this resource as well. Not currently used by Cloud Run.
+  x__xgafv: string, V1 error format.
+    Allowed values
+      1 - v1 error format
+      2 - v2 error format
+
+Returns:
+  An object of the form:
+
+    { # ListDomainMappingsResponse is a list of DomainMapping resources.
+  &quot;apiVersion&quot;: &quot;A String&quot;, # The API version for this call such as &quot;domains.cloudrun.com/v1&quot;.
+  &quot;items&quot;: [ # List of DomainMappings.
+    { # Resource to hold the state and status of a user&#x27;s domain mapping. NOTE: This resource is currently in Beta.
+      &quot;apiVersion&quot;: &quot;A String&quot;, # The API version for this call such as &quot;domains.cloudrun.com/v1&quot;.
+      &quot;kind&quot;: &quot;A String&quot;, # The kind of resource, in this case &quot;DomainMapping&quot;.
+      &quot;metadata&quot;: { # google.cloud.run.meta.v1.ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. # Metadata associated with this BuildTemplate.
+        &quot;annotations&quot;: { # Unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. In Cloud Run, annotations with &#x27;run.googleapis.com/&#x27; and &#x27;autoscaling.knative.dev&#x27; are restricted, and the accepted annotations will be different depending on the resource type. * `autoscaling.knative.dev/maxScale`: Revision. * `autoscaling.knative.dev/minScale`: Revision. * `run.googleapis.com/base-images`: Service, Revision. * `run.googleapis.com/binary-authorization-breakglass`: Service, Job, * `run.googleapis.com/binary-authorization`: Service, Job, Execution. * `run.googleapis.com/build-base-image`: Service. * `run.googleapis.com/build-enable-automatic-updates`: Service. * `run.googleapis.com/build-environment-variables`: Service. * `run.googleapis.com/build-function-target`: Service. * `run.googleapis.com/build-id`: Service. * `run.googleapis.com/build-image-uri`: Service. * `run.googleapis.com/build-name`: Service. * `run.googleapis.com/build-service-account`: Service. * `run.googleapis.com/build-source-location`: Service. * `run.googleapis.com/build-worker-pool`: Service. * `run.googleapis.com/client-name`: All resources. * `run.googleapis.com/cloudsql-instances`: Revision, Execution. * `run.googleapis.com/container-dependencies`: Revision . * `run.googleapis.com/cpu-throttling`: Revision. * `run.googleapis.com/custom-audiences`: Service. * `run.googleapis.com/default-url-disabled`: Service. * `run.googleapis.com/description`: Service. * `run.googleapis.com/encryption-key-shutdown-hours`: Revision * `run.googleapis.com/encryption-key`: Revision, Execution. * `run.googleapis.com/execution-environment`: Revision, Execution. * `run.googleapis.com/gc-traffic-tags`: Service. * `run.googleapis.com/health-check-disabled`: Revision. * `run.googleapis.com/ingress`: Service. * `run.googleapis.com/launch-stage`: Service, Job. * `run.googleapis.com/minScale`: Service * `run.googleapis.com/network-interfaces`: Revision, Execution. * `run.googleapis.com/post-key-revocation-action-type`: Revision. * `run.googleapis.com/secrets`: Revision, Execution. * `run.googleapis.com/secure-session-agent`: Revision. * `run.googleapis.com/sessionAffinity`: Revision. * `run.googleapis.com/startup-cpu-boost`: Revision. * `run.googleapis.com/vpc-access-connector`: Revision, Execution. * `run.googleapis.com/vpc-access-egress`: Revision, Execution.
+          &quot;a_key&quot;: &quot;A String&quot;,
+        },
+        &quot;clusterName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+        &quot;creationTimestamp&quot;: &quot;A String&quot;, # UTC timestamp representing the server time when this object was created.
+        &quot;deletionGracePeriodSeconds&quot;: 42, # Not supported by Cloud Run
+        &quot;deletionTimestamp&quot;: &quot;A String&quot;, # The read-only soft deletion timestamp for this resource. In Cloud Run, users are not able to set this field. Instead, they must call the corresponding Delete API.
+        &quot;finalizers&quot;: [ # Not supported by Cloud Run
+          &quot;A String&quot;,
+        ],
+        &quot;generateName&quot;: &quot;A String&quot;, # Not supported by Cloud Run
+        &quot;generation&quot;: 42, # A system-provided sequence number representing a specific generation of the desired state.
+        &quot;labels&quot;: { # Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and routes.
+          &quot;a_key&quot;: &quot;A String&quot;,
+        },
+        &quot;name&quot;: &quot;A String&quot;, # Required. The name of the resource. Name is required when creating top-level resources (Service, Job), must be unique within a Cloud Run project/region, and cannot be changed once created.
+        &quot;namespace&quot;: &quot;A String&quot;, # Required. Defines the space within each name must be unique within a Cloud Run region. In Cloud Run, it must be project ID or number.
+        &quot;ownerReferences&quot;: [ # Not supported by Cloud Run
+          { # This is not supported or used by Cloud Run.
+            &quot;apiVersion&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+            &quot;blockOwnerDeletion&quot;: True or False, # This is not supported or used by Cloud Run.
+            &quot;controller&quot;: True or False, # This is not supported or used by Cloud Run.
+            &quot;kind&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+            &quot;name&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+            &quot;uid&quot;: &quot;A String&quot;, # This is not supported or used by Cloud Run.
+          },
+        ],
+        &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque, system-generated value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server or omit the value to disable conflict-detection.
+        &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+        &quot;uid&quot;: &quot;A String&quot;, # Unique, system-generated identifier for this resource.
+      },
+      &quot;spec&quot;: { # The desired state of the Domain Mapping. # The spec for this DomainMapping.
+        &quot;certificateMode&quot;: &quot;A String&quot;, # The mode of the certificate.
+        &quot;forceOverride&quot;: True or False, # If set, the mapping will override any mapping set before this spec was set. It is recommended that the user leaves this empty to receive an error warning about a potential conflict and only set it once the respective UI has given such a warning.
+        &quot;routeName&quot;: &quot;A String&quot;, # The name of the Knative Route that this DomainMapping applies to. The route must exist.
+      },
+      &quot;status&quot;: { # The current state of the Domain Mapping. # The current status of the DomainMapping.
+        &quot;conditions&quot;: [ # Array of observed DomainMappingConditions, indicating the current state of the DomainMapping.
+          { # Conditions show the status of reconciliation progress on a given resource. Most resource use a top-level condition type &quot;Ready&quot; or &quot;Completed&quot; to show overall status with other conditions to checkpoint each stage of reconciliation. Note that if metadata.Generation does not equal status.ObservedGeneration, the conditions shown may not be relevant for the current spec.
+            &quot;lastTransitionTime&quot;: &quot;A String&quot;, # Optional. Last time the condition transitioned from one status to another.
+            &quot;message&quot;: &quot;A String&quot;, # Optional. Human readable message indicating details about the current status.
+            &quot;reason&quot;: &quot;A String&quot;, # Optional. One-word CamelCase reason for the condition&#x27;s last transition. These are intended to be stable, unique values which the client may use to trigger error handling logic, whereas messages which may be changed later by the server.
+            &quot;severity&quot;: &quot;A String&quot;, # Optional. How to interpret this condition. One of Error, Warning, or Info. Conditions of severity Info do not contribute to resource readiness.
+            &quot;status&quot;: &quot;A String&quot;, # Status of the condition, one of True, False, Unknown.
+            &quot;type&quot;: &quot;A String&quot;, # type is used to communicate the status of the reconciliation process. Types common to all resources include: * &quot;Ready&quot; or &quot;Completed&quot;: True when the Resource is ready.
+          },
+        ],
+        &quot;mappedRouteName&quot;: &quot;A String&quot;, # The name of the route that the mapping currently points to.
+        &quot;observedGeneration&quot;: 42, # ObservedGeneration is the &#x27;Generation&#x27; of the DomainMapping that was last processed by the controller. Clients polling for completed reconciliation should poll until observedGeneration = metadata.generation and the Ready condition&#x27;s status is True or False.
+        &quot;resourceRecords&quot;: [ # The resource records required to configure this domain mapping. These records must be added to the domain&#x27;s DNS configuration in order to serve the application via this domain mapping.
+          { # A DNS resource record.
+            &quot;name&quot;: &quot;A String&quot;, # Relative name of the object affected by this record. Only applicable for `CNAME` records. Example: &#x27;www&#x27;.
+            &quot;rrdata&quot;: &quot;A String&quot;, # Data for this record. Values vary by record type, as defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1).
+            &quot;type&quot;: &quot;A String&quot;, # Resource record type. Example: `AAAA`.
+          },
+        ],
+        &quot;url&quot;: &quot;A String&quot;, # Optional. Not supported by Cloud Run.
+      },
+    },
+  ],
+  &quot;kind&quot;: &quot;A String&quot;, # The kind of this resource, in this case &quot;DomainMappingList&quot;.
+  &quot;metadata&quot;: { # Metadata for synthetic resources like List. In Cloud Run, all List Resources Responses will have a ListMeta instead of ObjectMeta. # Metadata associated with this DomainMapping list.
+    &quot;continue&quot;: &quot;A String&quot;, # Continuation token is a value emitted when the count of items is larger than the user/system limit. To retrieve the next page of items, pass the value of `continue` as the next request&#x27;s `page_token`.
+    &quot;resourceVersion&quot;: &quot;A String&quot;, # Opaque string that identifies the server&#x27;s internal version of this object. It can be used by clients to determine when objects have changed. If the message is passed back to the server, it must be left unmodified.
+    &quot;selfLink&quot;: &quot;A String&quot;, # URL representing this object.
+  },
+  &quot;unreachable&quot;: [ # Locations that could not be reached.
+    &quot;A String&quot;,
+  ],
+}</pre>
+</div>
+
+</body></html>

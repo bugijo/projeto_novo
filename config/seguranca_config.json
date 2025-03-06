@@ -1,0 +1,106 @@
+{
+    "monitoramento": {
+        "intervalo_recursos": 5,
+        "intervalo_processos": 10,
+        "intervalo_rede": 15,
+        "intervalo_seguranca": 3600,
+        "limite_alertas": 1000
+    },
+    "limites": {
+        "cpu": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "memoria": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "disco": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "rede": {
+            "max_conexoes": 1000,
+            "max_banda": 1000000000
+        }
+    },
+    "seguranca": {
+        "portas_suspeitas": [21, 22, 23, 25, 445, 3389, 4444, 5900],
+        "portas_bloqueadas": [21, 23, 445],
+        "processos_bloqueados": [
+            "malware.exe",
+            "virus.exe",
+            "trojan.exe"
+        ],
+        "diretorios_monitorados": [
+            "~/Documents",
+            "~/Downloads",
+            "~/Desktop"
+        ],
+        "extensoes_perigosas": [
+            ".exe",
+            ".bat",
+            ".cmd",
+            ".scr",
+            ".vbs"
+        ]
+    },
+    "apis": {
+        "abuseipdb": {
+            "api_key": "",
+            "limite_score": 80,
+            "cache_tempo": 3600
+        },
+        "virustotal": {
+            "api_key": "",
+            "limite_deteccoes": 3,
+            "cache_tempo": 86400
+        }
+    },
+    "otimizacao": {
+        "limpar_arquivos_temp": true,
+        "intervalo_limpeza": 86400,
+        "limpar_cache_navegador": true,
+        "desfragmentar_disco": true,
+        "intervalo_desfrag": 604800
+    },
+    "backup": {
+        "ativo": true,
+        "intervalo": 86400,
+        "max_backups": 7,
+        "diretorios": [
+            "~/Documents",
+            "~/Pictures",
+            "~/Desktop"
+        ],
+        "compressao": true,
+        "criptografia": true
+    },
+    "notificacoes": {
+        "email": {
+            "ativo": false,
+            "servidor": "smtp.gmail.com",
+            "porta": 587,
+            "usuario": "",
+            "senha": "",
+            "destinatarios": []
+        },
+        "desktop": {
+            "ativo": true,
+            "som": true,
+            "duracao": 5
+        },
+        "telegram": {
+            "ativo": false,
+            "bot_token": "",
+            "chat_id": ""
+        }
+    },
+    "logs": {
+        "nivel": "INFO",
+        "arquivo": "logs/seguranca.log",
+        "rotacao": "1 MB",
+        "backup_count": 5,
+        "formato": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+} 

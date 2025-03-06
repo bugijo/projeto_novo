@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente IA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0f1117;
+            --bg-secondary: #1a1b1e;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --accent-blue: #3b82f6;
+            --user-bg: rgba(52, 53, 65, 0.5);
+        }
+        
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+        }
+        
+        .chat-container {
+            height: calc(100vh - 120px);
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background-color: var(--bg-main);
+            padding: 1rem 0;
+        }
+        
+        .message-row {
+            display: flex;
+            padding: 1rem;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .message-row.user {
+            background-color: var(--user-bg);
+            border-radius: 8px;
+            margin: 0.5rem 1rem;
+        }
+        
+        .message-row.assistant {
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            margin: 0.5rem 1rem;
+        }
+        
+        .message {
+            width: 100%;
+            padding: 0.5rem;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease-in;
+            white-space: pre-wrap;
+            font-size: 1rem;
+        }
+        
+        .message-content {
+            width: 100%;
+            max-width: 48rem;
+            margin: 0 auto;
+            padding: 0.5rem;
+        }
+        
+        .input-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-main);
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .conversation-item {
+            padding: 0.75rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+        
+        .conversation-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+        
+        .sidebar {
+            background-color: var(--bg-main);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .input-box {
+            min-height: 24px;
+            max-height: 200px;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            resize: none;
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        
+        .input-box:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .action-button {
+            padding: 0.5rem;
+            color: var(--text-secondary);
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-button:hover {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .model-selector {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .model-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .model-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .model-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            display: none;
+            z-index: 10;
+        }
+        
+        .model-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .model-option:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .model-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-active {
+            background-color: #10b981;
+        }
+        
+        .status-inactive {
+            background-color: #ef4444;
+        }
+        
+        .user-message {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .assistant-message {
+            color: var(--text-primary);
+            font-weight: normal;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Novo estilo para o botão do IDE */
+        .ide-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background-color: var(--accent-blue);
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+        
+        .ide-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .ide-button svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Modal de carregamento */
+        .loading-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--text-secondary);
+            border-top: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Estilo para código */
+        .code-block {
+            background-color: var(--bg-main);
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        
+        /* Estilo para imagens */
+        .message img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão do IDE -->
+    <button onclick="startIDE()" class="ide-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Abrir DevAssistant IDE
+    </button>
+
+    <!-- Modal de carregamento -->
+    <div id="loadingModal" class="loading-modal">
+        <div class="loading-spinner"></div>
+        <p class="mt-4 text-white">Iniciando o DevAssistant IDE...</p>
+    </div>
+
+    <!-- Container Principal -->
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 flex flex-col h-full">
+            <!-- Botão Nova Conversa -->
+            <div class="p-4">
+                <button onclick="startNewChat()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                    <span>Nova Conversa</span>
+                </button>
+            </div>
+
+            <!-- Lista de Conversas -->
+            <div class="flex-1 overflow-y-auto p-2">
+                <div id="conversations" class="space-y-1">
+                    <!-- Conversas serão adicionadas aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Área Principal -->
+        <div class="flex-1 flex flex-col">
+            <!-- Seleção de Modelo -->
+            <div class="p-4 flex justify-center">
+                <div class="model-selector">
+                    <button onclick="toggleModelOptions()" class="model-button">
+                        <div class="model-status status-active"></div>
+                        <span id="current-model">ComfyUI</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div id="model-options" class="model-options">
+                        <div class="model-option" onclick="selectModel('comfyui')">
+                            <div class="model-status status-active"></div>
+                            <span>ComfyUI (Local)</span>
+                        </div>
+                        <div class="model-option" onclick="selectModel('deepseek')">
+                            <div class="model-status status-inactive"></div>
+                            <span>DeepSeek</span>
+                        </div>
+                        <div class="model-option" onclick="selectModel('llama2')">
+                            <div class="model-status status-active"></div>
+                            <span>Llama 2</span>
+                        </div>
+                        <div class="model-option" onclick="selectModel('mixtral')">
+                            <div class="model-status status-active"></div>
+                            <span>Mixtral</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área de Chat -->
+            <div class="flex-1 relative">
+                <div id="chat-container" class="chat-container pb-32">
+                    <!-- Mensagens serão adicionadas aqui -->
+                </div>
+
+                <!-- Área de Input -->
+                <div class="input-container">
+                    <div class="max-w-3xl mx-auto">
+                        <div class="relative">
+                            <textarea 
+                                id="message-input"
+                                class="input-box"
+                                placeholder="Digite sua mensagem..."
+                                rows="1"
+                                onkeydown="handleKeyPress(event)"></textarea>
+                            
+                            <!-- Barra de Ações -->
+                            <div class="flex items-center justify-between mt-2 px-2">
+                                <div class="flex space-x-2">
+                                    <button class="action-button">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                        <span>Imagem</span>
+                                    </button>
+                                    <button class="action-button">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                        </svg>
+                                        <span>Vídeo</span>
+                                    </button>
+                                    <button class="action-button">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/>
+                                        </svg>
+                                        <span>3D</span>
+                                    </button>
+                                    <button class="action-button">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                        </svg>
+                                        <span>Refletir</span>
+                                    </button>
+                                </div>
+                                <button 
+                                    onclick="sendMessage()"
+                                    class="action-button text-blue-500 hover:text-blue-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentModel = 'comfyui';
+        let conversations = [];
+        let currentConversation = {
+            id: Date.now(),
+            messages: []
+        };
+
+        function toggleModelOptions() {
+            const options = document.getElementById('model-options');
+            options.style.display = options.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Fecha o menu de opções quando clicar fora dele
+        document.addEventListener('click', function(event) {
+            const selector = document.querySelector('.model-selector');
+            const options = document.getElementById('model-options');
+            if (!selector.contains(event.target)) {
+                options.style.display = 'none';
+            }
+        });
+
+        function selectModel(model) {
+            currentModel = model;
+            document.getElementById('current-model').textContent = {
+                'comfyui': 'ComfyUI',
+                'deepseek': 'DeepSeek',
+                'llama2': 'Llama 2',
+                'mixtral': 'Mixtral'
+            }[model];
+            toggleModelOptions();
+        }
+
+        function startNewChat() {
+            currentConversation = {
+                id: Date.now(),
+                messages: []
+            };
+            conversations.push(currentConversation);
+            updateConversationsList();
+            clearChat();
+        }
+
+        function clearChat() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML = '';
+        }
+
+        function updateConversationsList() {
+            const container = document.getElementById('conversations');
+            container.innerHTML = conversations.map(conv => `
+                <div class="conversation-item" onclick="loadConversation(${conv.id})">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                        </svg>
+                        <span>Conversa ${new Date(conv.id).toLocaleTimeString()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadConversation(id) {
+            currentConversation = conversations.find(conv => conv.id === id);
+            clearChat();
+            currentConversation.messages.forEach(msg => {
+                addMessage(msg.text, msg.type, msg.sender);
+            });
+        }
+
+        function addMessage(text, type = 'text', sender = 'user') {
+            const chatContainer = document.getElementById('chat-container');
+            const messageRow = document.createElement('div');
+            messageRow.className = `message-row ${sender}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            
+            if (type === 'code') {
+                // Formatar código
+                const codeBlock = document.createElement('pre');
+                codeBlock.className = 'code-block';
+                codeBlock.innerHTML = `<code>${text}</code>`;
+                messageDiv.appendChild(codeBlock);
+            } else if (type === 'image' && text.includes('<img')) {
+                // Formatar imagem
+                messageDiv.innerHTML = text;
+            } else {
+                // Formatar texto normal
+                messageDiv.innerText = text;
+            }
+            
+            // Adicionar ícone do remetente
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'message-icon';
+            if (sender === 'user') {
+                iconDiv.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>`;
+            } else {
+                iconDiv.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z" clip-rule="evenodd"/>
+                </svg>`;
+            }
+            
+            messageContent.appendChild(iconDiv);
+            messageContent.appendChild(messageDiv);
+            messageRow.appendChild(messageContent);
+            chatContainer.appendChild(messageRow);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            currentConversation.messages.push({
+                text: text,
+                type: type,
+                sender: sender
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+            const textarea = event.target;
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addMessage(message, 'text', 'user');
+            input.value = '';
+            input.style.height = 'auto';
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        model: currentModel
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    addMessage(data.response, data.type, 'assistant');
+                } else {
+                    addMessage("Desculpe, ocorreu um erro ao processar sua mensagem.", 'text', 'assistant');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                addMessage("Desculpe, ocorreu um erro ao enviar sua mensagem.", 'text', 'assistant');
+            }
+        }
+
+        async function startIDE() {
+            // Mostrar modal de carregamento
+            const loadingModal = document.getElementById('loadingModal');
+            loadingModal.style.display = 'flex';
+
+            try {
+                // Chamar API para iniciar o IDE
+                const response = await fetch('/api/start_ide', {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        // Aguardar 2 segundos para garantir que o IDE iniciou
+                        setTimeout(() => {
+                            loadingModal.style.display = 'none';
+                            // Redirecionar para o IDE na porta 5001
+                            window.location.href = 'http://localhost:5001';
+                        }, 2000);
+                    } else {
+                        alert('Erro ao iniciar o IDE: ' + data.error);
+                        loadingModal.style.display = 'none';
+                    }
+                } else {
+                    throw new Error('Erro na requisição');
+                }
+            } catch (error) {
+                alert('Erro ao iniciar o IDE. Por favor, tente novamente.');
+                loadingModal.style.display = 'none';
+            }
+        }
+
+        // Inicializa a primeira conversa
+        startNewChat();
+    </script>
+</body>
+</html> 

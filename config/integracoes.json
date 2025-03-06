@@ -1,0 +1,144 @@
+{
+    "email": {
+        "smtp_server": "smtp.gmail.com",
+        "smtp_port": 587,
+        "imap_server": "imap.gmail.com",
+        "email": "",
+        "senha": "",
+        "assinatura": "Enviado pelo Assistente Virtual",
+        "pastas_monitoradas": ["INBOX", "Sent"]
+    },
+    "clima": {
+        "api_key": "",
+        "cidade_padrao": "São Paulo,BR",
+        "unidade": "metric",
+        "idioma": "pt_br",
+        "atualizacao_automatica": true,
+        "intervalo_atualizacao": 3600
+    },
+    "noticias": {
+        "api_key": "",
+        "fontes": [
+            "g1",
+            "folha",
+            "estadao",
+            "bbc-brasil",
+            "uol"
+        ],
+        "categorias": [
+            "geral",
+            "tecnologia",
+            "economia",
+            "esportes",
+            "entretenimento"
+        ],
+        "palavras_chave": [],
+        "max_noticias_por_fonte": 10,
+        "atualizar_automaticamente": true,
+        "intervalo_atualizacao": 1800
+    },
+    "twitter": {
+        "api_key": "",
+        "api_secret": "",
+        "access_token": "",
+        "access_token_secret": "",
+        "monitorar_mencoes": true,
+        "monitorar_dms": true,
+        "auto_responder": false,
+        "respostas_automaticas": {
+            "padrao": "Obrigado pelo contato! Em breve retornarei sua mensagem.",
+            "fora_do_horario": "Estou fora do horário de atendimento. Retornarei assim que possível."
+        }
+    },
+    "youtube": {
+        "api_key": "",
+        "canal_padrao": "",
+        "playlist_padrao": "",
+        "max_resultados": 10,
+        "monitorar_canal": false,
+        "notificar_novos_videos": true
+    },
+    "telegram": {
+        "bot_token": "",
+        "chat_id": "",
+        "permitir_comandos": true,
+        "comandos_permitidos": [
+            "previsao",
+            "noticias",
+            "lembretes",
+            "status"
+        ]
+    },
+    "discord": {
+        "bot_token": "",
+        "servidor_padrao": "",
+        "canal_padrao": "",
+        "permitir_comandos": true,
+        "prefixo_comando": "!"
+    },
+    "github": {
+        "access_token": "",
+        "repositorio_padrao": "",
+        "monitorar_issues": true,
+        "monitorar_prs": true,
+        "auto_review": false
+    },
+    "trello": {
+        "api_key": "",
+        "token": "",
+        "board_padrao": "",
+        "lista_padrao": ""
+    },
+    "slack": {
+        "bot_token": "",
+        "canal_padrao": "",
+        "workspace": "",
+        "permitir_comandos": true
+    },
+    "spotify": {
+        "client_id": "",
+        "client_secret": "",
+        "redirect_uri": "",
+        "playlist_padrao": ""
+    },
+    "google_calendar": {
+        "credentials_file": "credentials.json",
+        "token_file": "token.json",
+        "calendario_padrao": "primary",
+        "sincronizar_eventos": true
+    },
+    "dropbox": {
+        "access_token": "",
+        "pasta_backup": "/backups",
+        "backup_automatico": true,
+        "intervalo_backup": 86400
+    },
+    "openai": {
+        "api_key": "",
+        "modelo_padrao": "gpt-3.5-turbo",
+        "max_tokens": 1000,
+        "temperatura": 0.7
+    },
+    "notificacoes": {
+        "desktop": true,
+        "email": true,
+        "telegram": false,
+        "slack": false,
+        "som": true,
+        "prioridade_minima": "normal"
+    },
+    "seguranca": {
+        "encriptar_tokens": true,
+        "encriptar_senhas": true,
+        "chave_encriptacao": "",
+        "permitir_acesso_remoto": false,
+        "ips_permitidos": []
+    },
+    "logs": {
+        "nivel": "INFO",
+        "arquivo": "logs/integracoes.log",
+        "rotacao": "daily",
+        "max_arquivos": 7,
+        "formato": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+} 

@@ -1,0 +1,141 @@
+{
+    "android_sdk_path": "",
+    "ios_sdk_path": "",
+    "flutter_path": "",
+    "react_native_path": "",
+    "gradle_path": "",
+    "xcode_path": "",
+    "emuladores": {
+        "android": {
+            "pixel_api_30": {
+                "nome": "Pixel_API_30",
+                "versao": "30",
+                "device": "pixel",
+                "resolucao": "1080x1920"
+            }
+        },
+        "ios": {
+            "iphone_13": {
+                "nome": "iPhone_13",
+                "versao": "15.0",
+                "device": "iPhone 13",
+                "resolucao": "1170x2532"
+            }
+        }
+    },
+    "templates": {
+        "flutter": {
+            "padrao": {
+                "nome": "app_padrao",
+                "descricao": "Template padrão com estrutura básica",
+                "recursos": [
+                    "navegacao",
+                    "tema_escuro",
+                    "internacionalizacao"
+                ]
+            },
+            "ecommerce": {
+                "nome": "app_ecommerce",
+                "descricao": "Template para aplicativo de e-commerce",
+                "recursos": [
+                    "carrinho",
+                    "pagamentos",
+                    "catalogo"
+                ]
+            },
+            "social": {
+                "nome": "app_social",
+                "descricao": "Template para rede social",
+                "recursos": [
+                    "feed",
+                    "chat",
+                    "perfil"
+                ]
+            }
+        },
+        "react_native": {
+            "padrao": {
+                "nome": "app_padrao",
+                "descricao": "Template padrão com estrutura básica",
+                "recursos": [
+                    "navegacao",
+                    "tema_escuro",
+                    "internacionalizacao"
+                ]
+            },
+            "ecommerce": {
+                "nome": "app_ecommerce",
+                "descricao": "Template para aplicativo de e-commerce",
+                "recursos": [
+                    "carrinho",
+                    "pagamentos",
+                    "catalogo"
+                ]
+            },
+            "social": {
+                "nome": "app_social",
+                "descricao": "Template para rede social",
+                "recursos": [
+                    "feed",
+                    "chat",
+                    "perfil"
+                ]
+            }
+        }
+    },
+    "configuracoes_build": {
+        "android": {
+            "minSdkVersion": 21,
+            "targetSdkVersion": 33,
+            "versionCode": 1,
+            "versionName": "1.0.0",
+            "keystoreConfig": {
+                "storeFile": "",
+                "storePassword": "",
+                "keyAlias": "",
+                "keyPassword": ""
+            }
+        },
+        "ios": {
+            "deploymentTarget": "13.0",
+            "bundleIdentifier": "com.exemplo.app",
+            "version": "1.0.0",
+            "buildNumber": "1",
+            "teamId": "",
+            "codeSignIdentity": "iPhone Developer"
+        }
+    },
+    "recursos_padrao": {
+        "icones": {
+            "android": {
+                "mdpi": "48x48",
+                "hdpi": "72x72",
+                "xhdpi": "96x96",
+                "xxhdpi": "144x144",
+                "xxxhdpi": "192x192"
+            },
+            "ios": {
+                "20x20": "@2x, @3x",
+                "29x29": "@2x, @3x",
+                "40x40": "@2x, @3x",
+                "60x60": "@2x, @3x",
+                "76x76": "@2x",
+                "83.5x83.5": "@2x"
+            }
+        },
+        "splash": {
+            "android": {
+                "mdpi": "320x480",
+                "hdpi": "480x800",
+                "xhdpi": "720x1280",
+                "xxhdpi": "960x1600",
+                "xxxhdpi": "1280x1920"
+            },
+            "ios": {
+                "retina": "640x960",
+                "retinaHD": "750x1334",
+                "iphoneX": "1125x2436"
+            }
+        }
+    }
+} 

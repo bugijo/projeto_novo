@@ -1,0 +1,228 @@
+{
+    "sistema": {
+        "modo_economia": true,
+        "limite_memoria": 0.7,
+        "threads_max": 4,
+        "intervalo_gc": 300,
+        "log_nivel": "INFO"
+    },
+    "modulos": {
+        "nlp": {
+            "modelo": "pequeno",
+            "batch_size": 1,
+            "cache_size": 100,
+            "prioridade": 5,
+            "sempre_ativo": true
+        },
+        "web": {
+            "modo_headless": true,
+            "timeout": 30,
+            "max_tentativas": 3,
+            "prioridade": 3
+        },
+        "automacao": {
+            "delay": 0.5,
+            "seguranca_ativa": true,
+            "screenshot_buffer": 5,
+            "prioridade": 4
+        },
+        "visao": {
+            "resolucao": "baixa",
+            "cache_frames": 10,
+            "skip_frames": 2,
+            "prioridade": 2
+        },
+        "programacao": {
+            "analise_tempo_real": false,
+            "sugestoes_ativas": true,
+            "cache_analise": true,
+            "prioridade": 2
+        }
+    },
+    "otimizacao": {
+        "descarregar_apos_uso": true,
+        "manter_nlp": true,
+        "cache_comandos": 50,
+        "compressao_memoria": true,
+        "limpar_arquivos_temp": true,
+        "intervalo_limpeza": 86400,
+        "limpar_cache_navegador": true,
+        "desfragmentar_disco": true,
+        "intervalo_desfrag": 604800
+    },
+    "interacao": {
+        "modo_conversa": "eficiente",
+        "contexto_maximo": 5,
+        "auto_sugestoes": true,
+        "correcao_erros": true
+    },
+    "recursos": {
+        "modelos_pequenos": {
+            "nlp": "distilbert-base-multilingual-cased",
+            "visao": "mobilenet_v2",
+            "classificacao": "tiny-bert"
+        },
+        "apis_fallback": {
+            "traducao": "libre-translate",
+            "texto_fala": "espeak",
+            "ocr": "tesseract"
+        }
+    },
+    "seguranca": {
+        "modo_sandbox": true,
+        "permissoes_restritas": true,
+        "verificar_comandos": true,
+        "backup_automatico": false,
+        "portas_suspeitas": [21, 22, 23, 25, 445, 3389, 4444, 5900],
+        "portas_bloqueadas": [21, 23, 445],
+        "processos_bloqueados": [
+            "malware.exe",
+            "virus.exe",
+            "trojan.exe"
+        ],
+        "diretorios_monitorados": [
+            "~/Documents",
+            "~/Downloads",
+            "~/Desktop"
+        ],
+        "extensoes_perigosas": [
+            ".exe",
+            ".bat",
+            ".cmd",
+            ".scr",
+            ".vbs"
+        ]
+    },
+    "monitoramento": {
+        "intervalo_recursos": 5,
+        "intervalo_processos": 10,
+        "intervalo_rede": 15,
+        "intervalo_seguranca": 3600,
+        "limite_alertas": 1000
+    },
+    "limites": {
+        "cpu": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "memoria": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "disco": {
+            "alerta": 90,
+            "critico": 95
+        },
+        "rede": {
+            "max_conexoes": 1000,
+            "max_banda": 1000000000
+        }
+    },
+    "sistema_avancado": {
+        "perfis_otimizacao": {
+            "gaming": {
+                "prioridade": "alto_desempenho",
+                "servicos_desativados": ["superfetch", "sysmain", "themes"],
+                "bios": {
+                    "xmp": true,
+                    "virtualizacao": false,
+                    "performance_mode": true
+                }
+            },
+            "desenvolvimento": {
+                "prioridade": "balanceado",
+                "servicos_desativados": ["superfetch"],
+                "bios": {
+                    "xmp": true,
+                    "virtualizacao": true,
+                    "performance_mode": false
+                }
+            },
+            "economia": {
+                "prioridade": "economia",
+                "servicos_desativados": [],
+                "bios": {
+                    "xmp": false,
+                    "virtualizacao": false,
+                    "performance_mode": false
+                }
+            }
+        },
+        "monitoramento_temperatura": {
+            "ativo": true,
+            "limite_cpu": 85,
+            "limite_gpu": 80,
+            "intervalo": 5
+        },
+        "otimizacao_automatica": {
+            "ativo": true,
+            "horario": "03:00",
+            "desfragmentacao": true,
+            "limpeza_temp": true,
+            "backup_registro": true
+        }
+    },
+    "deepseek": {
+        "modelo": "deepseek-coder-33b-instruct",
+        "temperatura": 0.7,
+        "max_tokens": 2048,
+        "contexto_sistema": true,
+        "cache_recomendacoes": 3600,
+        "prioridades": {
+            "seguranca": 0.8,
+            "desempenho": 0.9,
+            "estabilidade": 0.7
+        }
+    },
+    "apis": {
+        "abuseipdb": {
+            "api_key": "",
+            "limite_score": 80,
+            "cache_tempo": 3600
+        },
+        "virustotal": {
+            "api_key": "",
+            "limite_deteccoes": 3,
+            "cache_tempo": 86400
+        }
+    },
+    "backup": {
+        "ativo": true,
+        "intervalo": 86400,
+        "max_backups": 7,
+        "diretorios": [
+            "~/Documents",
+            "~/Pictures",
+            "~/Desktop"
+        ],
+        "compressao": true,
+        "criptografia": true
+    },
+    "notificacoes": {
+        "email": {
+            "ativo": false,
+            "servidor": "smtp.gmail.com",
+            "porta": 587,
+            "usuario": "",
+            "senha": "",
+            "destinatarios": []
+        },
+        "desktop": {
+            "ativo": true,
+            "som": true,
+            "duracao": 5
+        },
+        "telegram": {
+            "ativo": false,
+            "bot_token": "",
+            "chat_id": ""
+        }
+    },
+    "logs": {
+        "nivel": "INFO",
+        "arquivo": "logs/seguranca.log",
+        "rotacao": "1 MB",
+        "backup_count": 5,
+        "formato": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    }
+} 

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Virtual - Mobile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Barra de Navegação -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/logo.png" alt="Logo" class="w-10 h-10">
+                    <span class="ml-3 text-xl font-bold">Assistente Virtual</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Início</a>
+                        <a href="programacao.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Programação</a>
+                        <a href="mobile.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700">Mobile</a>
+                        <a href="games.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Games</a>
+                        <a href="configuracoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Configurações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 pt-20 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Painel Principal -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Criação de Projeto -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-6">Criar Novo Projeto</h2>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Nome do Projeto</label>
+                                <input type="text" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Framework</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="flutter">Flutter</option>
+                                    <option value="react-native">React Native</option>
+                                    <option value="kotlin">Android Nativo (Kotlin)</option>
+                                    <option value="swift">iOS Nativo (Swift)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Template</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="blank">Em Branco</option>
+                                    <option value="tabs">Navegação em Abas</option>
+                                    <option value="drawer">Menu Lateral</option>
+                                    <option value="auth">Autenticação</option>
+                                    <option value="ecommerce">E-commerce</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Plataformas</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="mr-2" checked>
+                                        Android
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="mr-2" checked>
+                                        iOS
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-medium">
+                            Criar Projeto
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Emuladores -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold">Emuladores</h2>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                            <i class="ph ph-plus mr-2"></i>
+                            Novo Emulador
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-gray-700 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <i class="ph ph-device-mobile text-2xl mr-2"></i>
+                                    <div>
+                                        <div class="font-medium">Pixel 4 API 30</div>
+                                        <div class="text-sm text-gray-400">Android 11.0</div>
+                                    </div>
+                                </div>
+                                <button class="p-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                                    <i class="ph ph-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-700 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center">
+                                    <i class="ph ph-device-mobile text-2xl mr-2"></i>
+                                    <div>
+                                        <div class="font-medium">iPhone 13</div>
+                                        <div class="text-sm text-gray-400">iOS 15.0</div>
+                                    </div>
+                                </div>
+                                <button class="p-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                                    <i class="ph ph-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build e Publicação -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-6">Build e Publicação</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-medium mb-4">Android</h3>
+                            <div class="space-y-4">
+                                <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                    <i class="ph ph-android-logo mr-2"></i>
+                                    <span>Gerar APK</span>
+                                </button>
+                                <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                    <i class="ph ph-shopping-bag mr-2"></i>
+                                    <span>Play Store</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-4">iOS</h3>
+                            <div class="space-y-4">
+                                <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                    <i class="ph ph-apple-logo mr-2"></i>
+                                    <span>Gerar IPA</span>
+                                </button>
+                                <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                    <i class="ph ph-shopping-bag mr-2"></i>
+                                    <span>App Store</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel Lateral -->
+            <div class="space-y-8">
+                <!-- Status do Projeto -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Status do Projeto</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span>Framework:</span>
+                            <span class="text-blue-400">Flutter</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Versão:</span>
+                            <span>1.0.0 (1)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Última build:</span>
+                            <span>Há 2 horas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recursos -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Recursos</h2>
+                    <div class="space-y-2">
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center">
+                            <i class="ph ph-image mr-2"></i>
+                            <span>Gerar Ícones</span>
+                        </button>
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center">
+                            <i class="ph ph-paint-brush mr-2"></i>
+                            <span>Splash Screen</span>
+                        </button>
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center">
+                            <i class="ph ph-translate mr-2"></i>
+                            <span>Localização</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Documentação -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Documentação</h2>
+                    <div class="space-y-2">
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">Flutter</div>
+                            <div class="text-xs text-gray-400">docs.flutter.dev</div>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">React Native</div>
+                            <div class="text-xs text-gray-400">reactnative.dev</div>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">Material Design</div>
+                            <div class="text-xs text-gray-400">material.io</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/mobile.js"></script>
+</body>
+</html> 

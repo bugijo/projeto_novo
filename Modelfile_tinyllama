@@ -1,0 +1,7 @@
+FROM tinyllama
+PARAMETER num_ctx 2048
+PARAMETER num_thread 4
+PARAMETER f16 true
+PARAMETER use_mmap true
+PARAMETER use_mlock false
+PARAMETER quantization q4_k_m

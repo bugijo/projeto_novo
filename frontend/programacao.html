@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Virtual - Programação</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/editor/editor.main.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Barra de Navegação -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/logo.png" alt="Logo" class="w-10 h-10">
+                    <span class="ml-3 text-xl font-bold">Assistente Virtual</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Início</a>
+                        <a href="programacao.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700">Programação</a>
+                        <a href="mobile.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Mobile</a>
+                        <a href="games.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Games</a>
+                        <a href="configuracoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Configurações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 pt-20 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Explorador de Arquivos -->
+            <div class="bg-gray-800 rounded-lg p-4 shadow-xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-bold">Explorador</h2>
+                    <div class="flex space-x-2">
+                        <button class="p-2 rounded-lg hover:bg-gray-700" title="Novo Arquivo">
+                            <i class="ph ph-file-plus"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-700" title="Nova Pasta">
+                            <i class="ph ph-folder-plus"></i>
+                        </button>
+                        <button class="p-2 rounded-lg hover:bg-gray-700" title="Atualizar">
+                            <i class="ph ph-arrows-clockwise"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="file-explorer" class="space-y-2">
+                    <!-- Árvore de arquivos será inserida aqui -->
+                </div>
+            </div>
+
+            <!-- Editor e Terminal -->
+            <div class="lg:col-span-2">
+                <!-- Abas do Editor -->
+                <div class="bg-gray-800 rounded-t-lg p-2 flex space-x-2">
+                    <div class="px-4 py-2 bg-gray-700 rounded-lg flex items-center">
+                        <i class="ph ph-file-code mr-2"></i>
+                        <span>main.py</span>
+                        <button class="ml-2 hover:text-gray-400">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                    <button class="px-4 py-2 hover:bg-gray-700 rounded-lg">
+                        <i class="ph ph-plus"></i>
+                    </button>
+                </div>
+
+                <!-- Editor -->
+                <div id="code-editor" class="h-96 bg-gray-800 border-t border-gray-700"></div>
+
+                <!-- Terminal -->
+                <div class="bg-gray-800 rounded-b-lg p-4 mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold">Terminal</span>
+                        <div class="flex space-x-2">
+                            <button class="p-1 hover:bg-gray-700 rounded">
+                                <i class="ph ph-plus"></i>
+                            </button>
+                            <button class="p-1 hover:bg-gray-700 rounded">
+                                <i class="ph ph-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="terminal" class="bg-black rounded-lg p-4 h-48 overflow-y-auto font-mono text-sm">
+                        <!-- Saída do terminal será inserida aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel Lateral -->
+            <div class="space-y-8">
+                <!-- Assistente de Código -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Assistente de Código</h2>
+                    <div class="space-y-4">
+                        <button class="w-full p-3 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center">
+                            <i class="ph ph-magic-wand mr-2"></i>
+                            <span>Sugerir Melhorias</span>
+                        </button>
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="ph ph-bug mr-2"></i>
+                            <span>Debugar Código</span>
+                        </button>
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="ph ph-test-tube mr-2"></i>
+                            <span>Gerar Testes</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Snippets -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Snippets</h2>
+                    <div class="space-y-2">
+                        <div class="p-3 bg-gray-700 rounded-lg hover:bg-gray-600 cursor-pointer">
+                            <div class="text-sm font-medium">Setup Básico</div>
+                            <div class="text-xs text-gray-400">Estrutura inicial do projeto</div>
+                        </div>
+                        <div class="p-3 bg-gray-700 rounded-lg hover:bg-gray-600 cursor-pointer">
+                            <div class="text-sm font-medium">API REST</div>
+                            <div class="text-xs text-gray-400">Endpoints básicos</div>
+                        </div>
+                        <div class="p-3 bg-gray-700 rounded-lg hover:bg-gray-600 cursor-pointer">
+                            <div class="text-sm font-medium">Banco de Dados</div>
+                            <div class="text-xs text-gray-400">Conexão e queries</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documentação -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Documentação</h2>
+                    <div class="space-y-2">
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">Python Docs</div>
+                            <div class="text-xs text-gray-400">Documentação oficial</div>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">Stack Overflow</div>
+                            <div class="text-xs text-gray-400">Perguntas e respostas</div>
+                        </a>
+                        <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-gray-600">
+                            <div class="text-sm font-medium">GitHub</div>
+                            <div class="text-xs text-gray-400">Repositórios e exemplos</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs/loader.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/editor.js"></script>
+</body>
+</html> 

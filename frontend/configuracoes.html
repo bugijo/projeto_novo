@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente Virtual - Configurações</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Barra de Navegação -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="assets/logo.png" alt="Logo" class="w-10 h-10">
+                    <span class="ml-3 text-xl font-bold">Assistente Virtual</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Início</a>
+                        <a href="programacao.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Programação</a>
+                        <a href="mobile.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Mobile</a>
+                        <a href="games.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Games</a>
+                        <a href="configuracoes.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-600 hover:bg-blue-700">Configurações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 pt-20 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Painel Principal -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Configurações Gerais -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-6">Configurações Gerais</h2>
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Idioma</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="pt-br">Português (Brasil)</option>
+                                    <option value="en">English</option>
+                                    <option value="es">Español</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Tema</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="dark">Escuro</option>
+                                    <option value="light">Claro</option>
+                                    <option value="system">Sistema</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2">
+                                    Ativar notificações
+                                </label>
+                            </div>
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="mr-2">
+                                    Ativar sons
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Configurações de API -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-6">Configurações de API</h2>
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">OpenAI API Key</label>
+                                <input type="password" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Modelo OpenAI</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="gpt-4">GPT-4</option>
+                                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Sketchfab API Key</label>
+                                <input type="password" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Google Poly API Key</label>
+                                <input type="password" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Configurações de Desenvolvimento -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-6">Configurações de Desenvolvimento</h2>
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Editor Padrão</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="vscode">Visual Studio Code</option>
+                                    <option value="sublime">Sublime Text</option>
+                                    <option value="atom">Atom</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Terminal Padrão</label>
+                                <select class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="powershell">PowerShell</option>
+                                    <option value="cmd">CMD</option>
+                                    <option value="wsl">WSL</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Diretório de Projetos</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" class="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg">
+                                        Selecionar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Painel Lateral -->
+            <div class="space-y-8">
+                <!-- Perfil -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <img src="assets/avatar.png" alt="Avatar" class="w-16 h-16 rounded-full">
+                        <div>
+                            <h2 class="text-xl font-bold">Usuário</h2>
+                            <p class="text-gray-400">Desenvolvedor</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="ph ph-user mr-2"></i>
+                            <span>Editar Perfil</span>
+                        </button>
+                        <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                            <i class="ph ph-key mr-2"></i>
+                            <span>Alterar Senha</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Backup -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Backup</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Último backup:</span>
+                            <span class="text-gray-400">Há 2 dias</span>
+                        </div>
+                        <div class="space-y-2">
+                            <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                <i class="ph ph-cloud-arrow-up mr-2"></i>
+                                <span>Fazer Backup</span>
+                            </button>
+                            <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                <i class="ph ph-cloud-arrow-down mr-2"></i>
+                                <span>Restaurar Backup</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sobre -->
+                <div class="bg-gray-800 rounded-lg p-6 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4">Sobre</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between text-sm">
+                            <span>Versão:</span>
+                            <span class="text-gray-400">1.0.0</span>
+                        </div>
+                        <div class="space-y-2">
+                            <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                <i class="ph ph-info mr-2"></i>
+                                <span>Notas da Versão</span>
+                            </button>
+                            <button class="w-full p-3 bg-gray-700 hover:bg-gray-600 rounded-lg flex items-center justify-center">
+                                <i class="ph ph-question mr-2"></i>
+                                <span>Ajuda</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/configuracoes.js"></script>
+</body>
+</html> 

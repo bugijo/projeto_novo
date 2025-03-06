@@ -1,0 +1,38 @@
+{
+    "nodes": {
+        "1": {
+            "class_type": "CodeGenerator",
+            "inputs": {
+                "prompt": "",
+                "language": "python",
+                "model": "deepseek",
+                "temperature": 0.7,
+                "max_tokens": 2000
+            }
+        },
+        "2": {
+            "class_type": "CodeAnalyzer",
+            "inputs": {
+                "code": ["1", 0],
+                "check_style": true,
+                "check_security": true,
+                "check_performance": true
+            }
+        },
+        "3": {
+            "class_type": "CodeOptimizer",
+            "inputs": {
+                "code": ["2", 0],
+                "level": "medium"
+            }
+        },
+        "4": {
+            "class_type": "SaveCode",
+            "inputs": {
+                "code": ["3", 0],
+                "filename_prefix": "output",
+                "extension": ".py"
+            }
+        }
+    }
+} 

@@ -1,0 +1,148 @@
+{
+    "apis": {
+        "openai": {
+            "api_key": "",
+            "modelo": "gpt-4",
+            "temperatura": 0.7,
+            "max_tokens": 1000
+        },
+        "poly": {
+            "api_key": "",
+            "formato_padrao": "obj",
+            "max_poligonos": 50000
+        },
+        "sketchfab": {
+            "api_key": "",
+            "formato_padrao": "gltf",
+            "max_poligonos": 100000
+        }
+    },
+    "recursos": {
+        "personagens": {
+            "formatos": ["fbx", "gltf", "obj"],
+            "max_poligonos": 10000,
+            "texturas_max": 2048,
+            "tipos": [
+                "humanóide",
+                "monstro",
+                "animal",
+                "robô",
+                "veículo"
+            ],
+            "atributos_padrao": {
+                "força": 10,
+                "agilidade": 10,
+                "resistência": 10,
+                "inteligência": 10
+            },
+            "animacoes_padrao": [
+                "idle",
+                "andar",
+                "correr",
+                "pular",
+                "atacar",
+                "defender",
+                "morrer"
+            ]
+        },
+        "cenarios": {
+            "formatos": ["fbx", "gltf", "obj"],
+            "max_poligonos": 100000,
+            "texturas_max": 4096,
+            "tipos": [
+                "floresta",
+                "cidade",
+                "dungeon",
+                "deserto",
+                "montanha",
+                "praia",
+                "interior"
+            ],
+            "elementos_padrao": {
+                "floresta": ["árvore", "arbusto", "pedra", "tronco"],
+                "cidade": ["prédio", "rua", "poste", "carro"],
+                "dungeon": ["parede", "porta", "tocha", "baú"]
+            },
+            "climas": [
+                "ensolarado",
+                "chuvoso",
+                "nevando",
+                "tempestade",
+                "nublado"
+            ]
+        },
+        "itens": {
+            "formatos": ["fbx", "gltf", "obj"],
+            "max_poligonos": 5000,
+            "texturas_max": 1024,
+            "tipos": {
+                "arma": ["espada", "arco", "machado", "lança"],
+                "armadura": ["capacete", "peitoral", "luvas", "botas"],
+                "consumível": ["poção", "comida", "pergaminho"],
+                "ferramenta": ["picareta", "machado", "pá"],
+                "decorativo": ["móvel", "quadro", "estátua"]
+            },
+            "raridades": [
+                "comum",
+                "incomum",
+                "raro",
+                "épico",
+                "lendário"
+            ],
+            "efeitos": [
+                "fogo",
+                "gelo",
+                "raio",
+                "veneno",
+                "luz",
+                "sombra"
+            ]
+        }
+    },
+    "otimizacao": {
+        "compressao_texturas": true,
+        "nivel_lod": 3,
+        "batch_processing": true,
+        "mobile": {
+            "max_poligonos": {
+                "personagem": 5000,
+                "cenario": 50000,
+                "item": 2500
+            },
+            "max_textura": 1024,
+            "max_bones": 30,
+            "compressao_alta": true
+        }
+    },
+    "cache": {
+        "tempo_expiracao": 86400,
+        "max_tamanho": 1073741824,
+        "limpar_automatico": true
+    },
+    "exportacao": {
+        "formatos_suportados": {
+            "modelo": ["fbx", "gltf", "obj"],
+            "textura": ["png", "jpg", "tga"],
+            "animacao": ["fbx", "bvh"],
+            "efeito": ["vfx", "particle"]
+        },
+        "configuracoes": {
+            "fbx": {
+                "versao": "FBX201800",
+                "escala": 1.0,
+                "up_axis": "Y",
+                "triangular": true
+            },
+            "gltf": {
+                "versao": 2,
+                "compacto": true,
+                "incluir_texturas": true
+            },
+            "obj": {
+                "incluir_materiais": true,
+                "incluir_normais": true,
+                "incluir_uvs": true
+            }
+        }
+    }
+} 

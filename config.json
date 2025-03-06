@@ -1,0 +1,339 @@
+{
+    "system": {
+        "name": "Assistente Híbrido",
+        "version": "1.0.0",
+        "debug": true
+    },
+    "local_model": {
+        "name": "tinyllama",
+        "api_url": "http://localhost:11434/api/generate",
+        "max_tokens": 2000,
+        "temperature": 0.7,
+        "top_p": 0.95
+    },
+    "external_services": {
+        "colab": {
+            "enabled": false,
+            "notebook_template": "assistente_colab.ipynb",
+            "check_interval": 300
+        },
+        "huggingface": {
+            "enabled": false,
+            "api_base": "https://api-inference.huggingface.co/models/",
+            "default_model": "codellama/CodeLlama-7b-Instruct-hf"
+        }
+    },
+    "cache": {
+        "enabled": true,
+        "max_size": 1000,
+        "ttl": 3600
+    },
+    "task_routing": {
+        "programming": {
+            "keywords": [
+                "programar",
+                "código",
+                "desenvolver",
+                "debug",
+                "erro",
+                "função",
+                "classe",
+                "api",
+                "html",
+                "css",
+                "javascript",
+                "python",
+                "java",
+                "c++",
+                "php"
+            ],
+            "preferred_service": "colab"
+        },
+        "general": {
+            "preferred_service": "local"
+        }
+    },
+    "version": "1.0.0",
+    "name": "Assistente Virtual de Desenvolvimento",
+    "description": "Sistema integrado para desenvolvimento de software, mobile e games",
+    
+    "apis": {
+        "openai": {
+            "model": "gpt-4",
+            "temperature": 0.7,
+            "max_tokens": 2000
+        },
+        "sketchfab": {
+            "max_polygons": 100000,
+            "formats": ["gltf", "fbx", "obj"]
+        },
+        "poly": {
+            "max_assets": 50,
+            "categories": ["characters", "props", "environments"]
+        }
+    },
+
+    "mobile": {
+        "frameworks": {
+            "flutter": {
+                "version": "latest",
+                "templates": ["blank", "tabs", "drawer", "auth", "ecommerce"]
+            },
+            "react-native": {
+                "version": "latest",
+                "templates": ["blank", "tabs", "drawer", "auth", "ecommerce"]
+            }
+        },
+        "platforms": {
+            "android": {
+                "min_sdk": 21,
+                "target_sdk": 33,
+                "build_types": ["debug", "release"]
+            },
+            "ios": {
+                "min_version": "13.0",
+                "build_types": ["debug", "release"]
+            }
+        }
+    },
+
+    "games": {
+        "assets": {
+            "characters": {
+                "max_polygons": 10000,
+                "texture_size": 2048,
+                "animations": ["idle", "walk", "run", "attack"],
+                "attributes": ["strength", "agility", "intelligence"]
+            },
+            "scenarios": {
+                "max_polygons": 50000,
+                "texture_size": 4096,
+                "elements": ["trees", "rocks", "water"],
+                "weather": ["sunny", "rainy", "night"]
+            },
+            "items": {
+                "max_polygons": 5000,
+                "texture_size": 1024,
+                "types": ["weapon", "armor", "potion"],
+                "attributes": ["damage", "defense", "durability"]
+            }
+        },
+        "optimization": {
+            "texture_compression": true,
+            "lod_levels": 3,
+            "batch_processing": true,
+            "mobile_limits": {
+                "max_polygons": 20000,
+                "max_texture_size": 1024
+            }
+        }
+    },
+
+    "development": {
+        "editors": {
+            "vscode": {
+                "extensions": [
+                    "dart-code",
+                    "flutter",
+                    "react-native-tools"
+                ]
+            },
+            "sublime": {
+                "packages": [
+                    "dart",
+                    "flutter",
+                    "react-native"
+                ]
+            }
+        },
+        "terminals": ["powershell", "cmd", "wsl"],
+        "linters": {
+            "dart": "dart analyze",
+            "javascript": "eslint",
+            "typescript": "tslint"
+        }
+    },
+
+    "interface": {
+        "themes": {
+            "dark": {
+                "background": "#111827",
+                "foreground": "#ffffff",
+                "primary": "#3b82f6",
+                "secondary": "#6b7280"
+            },
+            "light": {
+                "background": "#ffffff",
+                "foreground": "#111827",
+                "primary": "#2563eb",
+                "secondary": "#9ca3af"
+            }
+        },
+        "languages": ["pt-br", "en", "es"],
+        "notifications": {
+            "position": "bottom-right",
+            "duration": 3000
+        }
+    },
+
+    "backup": {
+        "auto_backup": true,
+        "interval": 86400,
+        "max_backups": 10,
+        "include": [
+            "configs/*",
+            "projects/*",
+            "assets/*"
+        ]
+    },
+
+    "security": {
+        "api_keys_encryption": true,
+        "session_timeout": 3600,
+        "allowed_origins": ["http://localhost:3000"],
+        "rate_limiting": {
+            "max_requests": 100,
+            "window_ms": 60000
+        }
+    },
+
+    "logging": {
+        "level": "info",
+        "file": "logs/app.log",
+        "max_size": "10m",
+        "max_files": 5,
+        "format": "json"
+    },
+
+    "mainModel": "comfyui",
+    "temperature": 0.7,
+    "autoSave": true,
+    "models": {
+        "comfyui": {
+            "name": "ComfyUI",
+            "path": "../ComfyUI-master",
+            "enabled": true,
+            "settings": {
+                "port": 8188,
+                "host": "127.0.0.1",
+                "enablePreview": true,
+                "outputDir": "outputs"
+            }
+        },
+        "llama": {
+            "name": "Llama 2",
+            "enabled": false,
+            "settings": {
+                "modelPath": "models/llama-2-7b",
+                "temperature": 0.7,
+                "maxTokens": 2048
+            }
+        },
+        "gpt4": {
+            "name": "GPT-4",
+            "enabled": false,
+            "settings": {
+                "apiKey": "",
+                "organization": "",
+                "temperature": 0.7,
+                "maxTokens": 2048
+            }
+        }
+    },
+
+    "ui": {
+        "theme": "light",
+        "language": "pt-BR",
+        "notifications": {
+            "enabled": true,
+            "position": "bottom-right",
+            "duration": 3000
+        },
+        "shortcuts": {
+            "newWorkflow": "Ctrl+N",
+            "saveWorkflow": "Ctrl+S",
+            "executeWorkflow": "Ctrl+Enter",
+            "clearChat": "Ctrl+L"
+        }
+    },
+
+    "workflows": {
+        "autosave": true,
+        "saveInterval": 300,
+        "maxHistory": 50,
+        "defaultTemplate": "blank",
+        "categories": [
+            "Imagem",
+            "Código",
+            "Texto",
+            "Áudio",
+            "Vídeo"
+        ]
+    },
+
+    "api": {
+        "port": 5000,
+        "host": "127.0.0.1",
+        "debug": true,
+        "cors": {
+            "enabled": true,
+            "origins": ["http://localhost:5000"]
+        },
+        "rateLimit": {
+            "enabled": true,
+            "maxRequests": 100,
+            "window": 60
+        }
+    },
+
+    "storage": {
+        "type": "local",
+        "path": "data",
+        "backup": {
+            "enabled": true,
+            "interval": 86400,
+            "maxBackups": 7
+        }
+    },
+
+    "logging": {
+        "level": "INFO",
+        "file": "app.log",
+        "maxSize": 10485760,
+        "backupCount": 5,
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+
+    "security": {
+        "authentication": {
+            "enabled": false,
+            "type": "basic",
+            "sessionTimeout": 3600
+        },
+        "ssl": {
+            "enabled": false,
+            "cert": "cert.pem",
+            "key": "key.pem"
+        }
+    },
+
+    "resources": {
+        "maxMemory": 8589934592,
+        "maxStorage": 107374182400,
+        "cleanupInterval": 3600,
+        "tmpCleanup": true
+    },
+
+    "experimental": {
+        "features": {
+            "batchProcessing": false,
+            "autoOptimization": false,
+            "realTimePreview": true
+        },
+        "models": {
+            "loadOnDemand": true,
+            "unloadInactive": true,
+            "inactiveTimeout": 1800
+        }
+    }
+} 

@@ -1,0 +1,32 @@
+{
+    "comandos_sistema": {
+        "abrir_navegador": {
+            "palavras_chave": ["abrir navegador", "abrir chrome", "abrir firefox"],
+            "acao": "abrir_navegador"
+        },
+        "hora_atual": {
+            "palavras_chave": ["que horas são", "hora atual", "me diga as horas"],
+            "acao": "hora_atual"
+        }
+    },
+    "comandos_programacao": {
+        "criar_arquivo": {
+            "palavras_chave": ["criar arquivo", "novo arquivo", "criar projeto"],
+            "acao": "criar_arquivo"
+        },
+        "sugerir_codigo": {
+            "palavras_chave": ["sugerir código", "ajuda com código", "como fazer"],
+            "acao": "sugerir_codigo"
+        }
+    },
+    "comandos_automacao": {
+        "mover_mouse": {
+            "palavras_chave": ["mover mouse", "mover cursor"],
+            "acao": "mover_mouse"
+        },
+        "digitar_texto": {
+            "palavras_chave": ["digitar", "escrever texto"],
+            "acao": "digitar_texto"
+        }
+    }
+} 
