@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Assistente IA Local</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="titlebar">
+        <div class="titlebar-buttons">
+            <button id="minimize-btn">-</button>
+            <button id="maximize-btn">□</button>
+            <button id="close-btn">×</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Logo">
+                <h1>Assistente IA</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#chat">Chat</a></li>
+                    <li><a href="#config">Configurações</a></li>
+                    <li><a href="#voice">Voz</a></li>
+                    <li><a href="#plugins">Plugins</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="main-content">
+            <div id="chat-container">
+                <div id="messages"></div>
+                <div class="input-container">
+                    <button id="voice-btn">
+                        <img src="assets/mic.png" alt="Microfone">
+                    </button>
+                    <input type="text" id="message-input" placeholder="Digite sua mensagem...">
+                    <button id="send-btn">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="animation-container">
+        <canvas id="particles"></canvas>
+    </div>
+
+    <script src="renderer.js"></script>
+    <script src="particles.js"></script>
+</body>
+</html> 

@@ -144,4 +144,101 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 - 📧 Email: suporte@devassistant.io
 - 💬 Discord: https://discord.gg/devassistant
 - 📖 Documentação: https://docs.devassistant.io
-- 🐛 Issues: https://github.com/seu-usuario/devassistant-ide/issues 
+- 🐛 Issues: https://github.com/seu-usuario/devassistant-ide/issues
+
+# Assistente IA Local
+
+Um assistente de IA local com interface moderna, processamento de voz e animações suaves.
+
+## Características
+
+- 🤖 IA local usando Ollama com modelo Phi (leve e eficiente)
+- 🎙️ Reconhecimento de voz usando Whisper
+- 🔊 Síntese de voz usando Coqui TTS
+- ✨ Interface moderna com animações de partículas
+- 💾 Sistema de cache para melhor performance
+- 🎨 Temas personalizáveis
+- 🔌 Sistema de plugins
+
+## Requisitos do Sistema
+
+- Windows 10 ou superior
+- 16GB de RAM (mínimo)
+- Processador Intel/AMD x64
+- 2GB de espaço em disco
+
+## Instalação
+
+1. Instale o Node.js (versão 16 ou superior)
+2. Instale o Ollama seguindo as instruções em [ollama.ai](https://ollama.ai)
+3. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/assistente-ia-local.git
+   cd assistente-ia-local
+   ```
+4. Instale as dependências:
+   ```bash
+   npm install
+   ```
+5. Inicie o aplicativo:
+   ```bash
+   npm start
+   ```
+
+## Configuração
+
+1. Na primeira execução, o sistema baixará automaticamente o modelo Phi
+2. Acesse as configurações para personalizar:
+   - Nome do assistente
+   - Voz
+   - Tema
+   - Atalhos de teclado
+
+## Uso
+
+- Digite suas mensagens na caixa de texto
+- Use o botão de microfone para entrada por voz
+- Navegue entre as diferentes seções usando o menu lateral
+- Personalize o assistente nas configurações
+
+## Desenvolvimento
+
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua feature:
+   ```bash
+   git checkout -b minha-feature
+   ```
+3. Faça suas alterações e commit:
+   ```bash
+   git commit -m 'Adiciona nova feature'
+   ```
+4. Push para a branch:
+   ```bash
+   git push origin minha-feature
+   ```
+5. Abra um Pull Request
+
+## Estrutura do Projeto
+
+```
+assistente-ia-local/
+├── src/
+│   ├── ai/          # Core da IA
+│   ├── voice/       # Sistema de voz
+│   ├── ui/          # Interface do usuário
+│   ├── core/        # Funcionalidades principais
+│   ├── utils/       # Utilitários
+│   └── config/      # Configurações
+├── cache/           # Cache do sistema
+└── plugins/         # Plugins instalados
+```
+
+## Licença
+
+Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## Suporte
+
+Se encontrar algum problema ou tiver sugestões, por favor abra uma issue no GitHub. 
