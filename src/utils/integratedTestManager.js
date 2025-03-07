@@ -6,10 +6,9 @@ const autoBackup = require('./autoBackup');
 const notificationManager = require('./notificationManager');
 const chokidar = require('chokidar');
 
-const logger = createLogger('[IntegratedTest]');
-
 class IntegratedTestManager {
     constructor() {
+        this.logger = createLogger('[IntegratedTestManager]');
         this.testSuites = new Map();
         this.testResults = new Map();
         this.watchedFiles = new Set();
@@ -110,9 +109,9 @@ class IntegratedTestManager {
         try {
             // Implementar lógica de salvamento aqui
             await autoBackup.saveFile(filePath);
-            logger.info(`Arquivo salvo: ${filePath}`);
+            this.logger.info(`Arquivo salvo: ${filePath}`);
         } catch (error) {
-            logger.error(`Erro ao salvar arquivo ${filePath}:`, error);
+            this.logger.error(`Erro ao salvar arquivo ${filePath}:`, error);
         }
     }
 
@@ -131,7 +130,7 @@ class IntegratedTestManager {
 
         try {
             const affectedSuites = this.getAffectedTestSuites();
-            logger.info(`Executando ${affectedSuites.length} suites de teste afetadas`);
+            this.logger.info(`Executando ${affectedSuites.length} suites de teste afetadas`);
 
             for (const suite of affectedSuites) {
                 await this.runTestSuite(suite.name);
@@ -144,7 +143,7 @@ class IntegratedTestManager {
             // Limpar mudanças pendentes
             this.pendingChanges.clear();
         } catch (error) {
-            logger.error('Erro ao executar testes:', error);
+            this.logger.error('Erro ao executar testes:', error);
             await notificationManager.notifyError(`Erro ao executar testes: ${error.message}`);
         } finally {
             this.isTestRunning = false;
@@ -205,7 +204,7 @@ class IntegratedTestManager {
     }
 
     async attemptAutoFix(suite, error) {
-        logger.info(`Tentando correção automática para ${suite.name}`);
+        this.logger.info(`Tentando correção automática para ${suite.name}`);
 
         try {
             // Tentar correções específicas do tipo de erro
@@ -218,7 +217,7 @@ class IntegratedTestManager {
             // Executar testes novamente após correção
             await this.runTestSuite(suite.name);
         } catch (fixError) {
-            logger.error(`Não foi possível corrigir automaticamente:`, fixError);
+            this.logger.error(`Não foi possível corrigir automaticamente:`, fixError);
         }
     }
 
