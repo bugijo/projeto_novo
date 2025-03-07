@@ -106,10 +106,10 @@ function throttle(func, limit) {
 // Funções de log
 function createLogger(prefix) {
     return {
-        log: (...args) => console.log(prefix, ...args),
-        error: (...args) => console.error(prefix, ...args),
-        warn: (...args) => console.warn(prefix, ...args),
-        info: (...args) => console.info(prefix, ...args)
+        info: (message, ...args) => console.log(`${prefix}:`, message, ...args),
+        error: (message, ...args) => console.error(`${prefix}:`, message, ...args),
+        warn: (message, ...args) => console.warn(`${prefix}:`, message, ...args),
+        debug: (message, ...args) => console.debug(`${prefix}:`, message, ...args)
     };
 }
 

@@ -1,0 +1,54 @@
+{
+    "autoSave": true,
+    "formatOnSave": true,
+    "autoBackup": true,
+    "maxLinesPerView": 1000,
+    "maxSearchResults": 500,
+    "disableLineLimits": true,
+    "commands": {
+        "read_file": {
+            "requireApproval": false,
+            "explanation": "Leitura automática de arquivos habilitada",
+            "maxLines": 1000
+        },
+        "list_dir": {
+            "requireApproval": false,
+            "explanation": "Listagem automática de diretórios habilitada",
+            "maxResults": 500
+        },
+        "grep_search": {
+            "requireApproval": false,
+            "explanation": "Busca automática habilitada",
+            "maxResults": 500
+        },
+        "file_search": {
+            "requireApproval": false,
+            "explanation": "Busca de arquivos automática habilitada",
+            "maxResults": 500
+        },
+        "edit_file": {
+            "requireApproval": false,
+            "explanation": "Edição automática de arquivos habilitada",
+            "maxLines": 1000
+        }
+    },
+    "editor": {
+        "maxFileSize": 10485760,
+        "largeFileWarningThreshold": 5242880,
+        "wordWrap": "on",
+        "lineNumbers": true,
+        "scrollBeyondLastLine": false,
+        "minimap": {
+            "enabled": true,
+            "maxColumn": 120
+        }
+    },
+    "terminal": {
+        "scrollback": 10000,
+        "maxHistorySize": 1000
+    },
+    "performance": {
+        "maxConcurrentOperations": 10,
+        "debounceInterval": 300
+    }
+} 

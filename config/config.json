@@ -40,5 +40,32 @@
         "cors_origins": ["*"],
         "rate_limit": 100,
         "timeout": 30
+    },
+    "assistant": {
+        "name": "Assistente",
+        "voice": {
+            "language": "pt-BR",
+            "model": "base",
+            "speaker": "pt_br_female"
+        }
+    },
+    "ai": {
+        "model": "phi",
+        "contextSize": 2048,
+        "temperature": 0.7,
+        "maxTokens": 1000
+    },
+    "ui": {
+        "theme": "dark",
+        "animations": true,
+        "fontSize": 14
+    },
+    "cache": {
+        "enabled": true,
+        "maxSize": 104857600
+    },
+    "plugins": {
+        "enabled": true,
+        "directory": "plugins"
     }
 } 

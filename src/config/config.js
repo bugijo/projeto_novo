@@ -1,59 +1,25 @@
+const { createLogger } = require('../utils/utils');
 const path = require('path');
 const fs = require('fs');
 
+const logger = createLogger('[Config]');
+
 class Config {
     constructor() {
-        this.configPath = path.join(__dirname, '../../config.json');
-        this.config = this.loadConfig();
+        this.configPath = path.join(__dirname, '../../config/config.json');
+        this.config = {};
     }
 
-    loadConfig() {
+    async load() {
         try {
             if (fs.existsSync(this.configPath)) {
-                const data = fs.readFileSync(this.configPath, 'utf8');
-                return JSON.parse(data);
+                this.config = JSON.parse(fs.readFileSync(this.configPath, 'utf8'));
             }
+            logger.info('Configurações carregadas');
+            return true;
         } catch (error) {
-            console.error('Erro ao carregar configuração:', error);
-        }
-
-        // Configuração padrão
-        return {
-            assistant: {
-                name: 'Assistente',
-                voice: {
-                    language: 'pt-BR',
-                    model: 'base',
-                    speaker: 'pt_br_female'
-                }
-            },
-            ai: {
-                model: 'phi',
-                contextSize: 2048,
-                temperature: 0.7,
-                maxTokens: 1000
-            },
-            ui: {
-                theme: 'dark',
-                animations: true,
-                fontSize: 14
-            },
-            cache: {
-                enabled: true,
-                maxSize: 100 * 1024 * 1024 // 100MB
-            },
-            plugins: {
-                enabled: true,
-                directory: path.join(__dirname, '../../plugins')
-            }
-        };
-    }
-
-    saveConfig() {
-        try {
-            fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 2));
-        } catch (error) {
-            console.error('Erro ao salvar configuração:', error);
+            logger.error('Erro ao carregar configurações:', error);
+            return false;
         }
     }
 
@@ -63,20 +29,24 @@ class Config {
 
     set(key, value) {
         const keys = key.split('.');
-        const lastKey = keys.pop();
+        const last = keys.pop();
         const obj = keys.reduce((obj, k) => obj[k] = obj[k] || {}, this.config);
-        obj[lastKey] = value;
-        this.saveConfig();
+        obj[last] = value;
+        this.save();
     }
 
-    reset() {
-        this.config = this.loadConfig();
-        this.saveConfig();
+    save() {
+        try {
+            fs.writeFileSync(this.configPath, JSON.stringify(this.config, null, 2));
+            logger.info('Configurações salvas');
+            return true;
+        } catch (error) {
+            logger.error('Erro ao salvar configurações:', error);
+            return false;
+        }
     }
 }
 
-const config = new Config();
-
 module.exports = {
-    config
+    config: new Config()
 }; 
