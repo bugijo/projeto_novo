@@ -1,4 +1,4 @@
-const { LlamaModel, LlamaContext, LlamaChatSession } = require('@llama-node/core');
+const { createLlamaModel, createLlamaContext } = require('@llama-node/core');
 const { LlamaCpp } = require('@llama-node/llama-cpp');
 const path = require('path');
 const fs = require('fs');
@@ -16,7 +16,7 @@ class AIManager {
             await this.setupBaseModel();
             
             // Registrar modelos especializados
-            this.registerSpecializedModels();
+            await this.registerSpecializedModels();
             
             this.initialized = true;
             console.log('AIManager inicializado com sucesso');
@@ -33,43 +33,41 @@ class AIManager {
             throw new Error('Modelo base não encontrado. Execute setup_ai.js primeiro.');
         }
 
-        const model = new LlamaModel({
+        const model = await createLlamaModel({
             modelPath: modelPath,
             contextSize: this.config.models.llama3.context_length,
             batchSize: 512,
-            threads: 4
+            threads: 4,
+            backend: LlamaCpp
         });
 
-        const context = new LlamaContext({ model });
-        const session = new LlamaChatSession({ context });
-
+        const context = await createLlamaContext({ model });
+        
         this.models.set('llama3', {
             model,
             context,
-            session,
             type: 'general',
             tasks: ['text_generation', 'summarization', 'analysis']
         });
     }
 
-    registerSpecializedModels() {
+    async registerSpecializedModels() {
         const mistralPath = path.join(__dirname, '../../models/mistral.gguf');
         
         if (fs.existsSync(mistralPath)) {
-            const model = new LlamaModel({
+            const model = await createLlamaModel({
                 modelPath: mistralPath,
                 contextSize: this.config.models.mistral.context_length,
                 batchSize: 512,
-                threads: 4
+                threads: 4,
+                backend: LlamaCpp
             });
 
-            const context = new LlamaContext({ model });
-            const session = new LlamaChatSession({ context });
-
+            const context = await createLlamaContext({ model });
+            
             this.models.set('mistral', {
                 model,
                 context,
-                session,
                 type: 'specialized',
                 tasks: ['code_generation', 'code_review']
             });
@@ -82,9 +80,9 @@ class AIManager {
         }
 
         const taskType = this.analyzeTaskType(request);
-        const selectedModel = this.selectBestModel(taskType);
+        const modelInfo = this.selectBestModel(taskType);
         
-        return await this.executeTask(selectedModel, request);
+        return await this.executeTask(modelInfo, request);
     }
 
     analyzeTaskType(request) {
@@ -108,9 +106,14 @@ class AIManager {
 
     async executeTask(modelInfo, request) {
         try {
-            const { session } = modelInfo;
-            const response = await session.prompt(request);
-            return response;
+            const { context } = modelInfo;
+            const response = await context.completion(request, {
+                maxTokens: 2048,
+                temperature: 0.7,
+                topP: 0.9,
+                stopSequences: ['</s>', '\n\n']
+            });
+            return response.text;
         } catch (error) {
             console.error('Erro ao executar tarefa:', error);
             throw error;
