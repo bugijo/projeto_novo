@@ -1,5 +1,5 @@
-const { createLlamaModel, createLlamaContext } = require('@llama-node/core');
-const { LlamaCpp } = require('@llama-node/llama-cpp');
+const { LLM } = require('llama-node');
+const { LLamaCpp } = require('@llama-node/llama-cpp');
 const path = require('path');
 const fs = require('fs');
 
@@ -33,19 +33,23 @@ class AIManager {
             throw new Error('Modelo base não encontrado. Execute setup_ai.js primeiro.');
         }
 
-        const model = await createLlamaModel({
+        const llama = new LLM(LLamaCpp);
+        await llama.load({
             modelPath: modelPath,
-            contextSize: this.config.models.llama3.context_length,
-            batchSize: 512,
-            threads: 4,
-            backend: LlamaCpp
+            enableLogging: true,
+            nCtx: this.config.models.llama3.context_length,
+            seed: 0,
+            f16Kv: false,
+            logitsAll: false,
+            vocabOnly: false,
+            useMlock: false,
+            embedding: false,
+            useMmap: true,
+            nGpuLayers: 0
         });
 
-        const context = await createLlamaContext({ model });
-        
         this.models.set('llama3', {
-            model,
-            context,
+            llm: llama,
             type: 'general',
             tasks: ['text_generation', 'summarization', 'analysis']
         });
@@ -55,19 +59,23 @@ class AIManager {
         const mistralPath = path.join(__dirname, '../../models/mistral.gguf');
         
         if (fs.existsSync(mistralPath)) {
-            const model = await createLlamaModel({
+            const llama = new LLM(LLamaCpp);
+            await llama.load({
                 modelPath: mistralPath,
-                contextSize: this.config.models.mistral.context_length,
-                batchSize: 512,
-                threads: 4,
-                backend: LlamaCpp
+                enableLogging: true,
+                nCtx: this.config.models.mistral.context_length,
+                seed: 0,
+                f16Kv: false,
+                logitsAll: false,
+                vocabOnly: false,
+                useMlock: false,
+                embedding: false,
+                useMmap: true,
+                nGpuLayers: 0
             });
 
-            const context = await createLlamaContext({ model });
-            
             this.models.set('mistral', {
-                model,
-                context,
+                llm: llama,
                 type: 'specialized',
                 tasks: ['code_generation', 'code_review']
             });
@@ -106,14 +114,22 @@ class AIManager {
 
     async executeTask(modelInfo, request) {
         try {
-            const { context } = modelInfo;
-            const response = await context.completion(request, {
-                maxTokens: 2048,
-                temperature: 0.7,
-                topP: 0.9,
-                stopSequences: ['</s>', '\n\n']
+            const { llm } = modelInfo;
+            let response = '';
+
+            await llm.createCompletion({
+                nThreads: 4,
+                nTokPredict: 2048,
+                topK: 40,
+                topP: 0.1,
+                temp: 0.7,
+                repeatPenalty: 1,
+                prompt: request
+            }, (token) => {
+                response += token;
             });
-            return response.text;
+
+            return response;
         } catch (error) {
             console.error('Erro ao executar tarefa:', error);
             throw error;
@@ -121,24 +137,29 @@ class AIManager {
     }
 
     async createText(prompt) {
-        return this.processRequest(`Gerar texto: ${prompt}`);
+        return this.processRequest(`A chat between a user and an assistant.
+USER: ${prompt}
+ASSISTANT:`);
     }
 
     async createAppointment(details) {
-        return this.processRequest(`Criar compromisso: ${JSON.stringify(details)}`);
+        return this.processRequest(`A chat between a user and an assistant.
+USER: Create an appointment with these details: ${JSON.stringify(details)}
+ASSISTANT:`);
     }
 
     async analyzeCode(code) {
-        return this.processRequest(`Analisar código: ${code}`);
+        return this.processRequest(`A chat between a user and an assistant.
+USER: Analyze this code:
+${code}
+ASSISTANT:`);
     }
 
     async cleanup() {
         for (const [_, modelInfo] of this.models) {
-            if (modelInfo.context) {
-                await modelInfo.context.free();
-            }
-            if (modelInfo.model) {
-                await modelInfo.model.free();
+            if (modelInfo.llm) {
+                // O llama-node não tem método de cleanup explícito
+                modelInfo.llm = null;
             }
         }
         this.models.clear();
