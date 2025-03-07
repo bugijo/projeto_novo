@@ -1,22 +1,28 @@
 {
   "name": "projeto_novo",
   "version": "1.0.0",
-  "description": "",
+  "description": "IDE com IA integrada",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "setup-ai": "node scripts/setup_ai.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@llama-node/core": "^0.1.6",
+    "@llama-node/llama-cpp": "^0.1.6",
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
     "axios": "^1.6.7",
     "chokidar": "^3.6.0",
-    "electron": "^29.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "electron": "^28.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 } 

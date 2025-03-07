@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da IA</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-panel {
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #cccccc;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: 'Consolas', monospace;
+        }
+
+        button {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #106ebe;
+        }
+
+        .output {
+            background-color: #1e1e1e;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            font-family: 'Consolas', monospace;
+        }
+
+        .log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #2d2d2d;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 3px solid #0078d4;
+        }
+
+        .error {
+            border-left-color: #d83b01;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teste da IA</h1>
+        
+        <div class="test-panel">
+            <h2>Geração de Texto</h2>
+            <div class="input-group">
+                <label for="text-prompt">Prompt:</label>
+                <textarea id="text-prompt" rows="3"></textarea>
+            </div>
+            <button onclick="testTextGeneration()">Gerar Texto</button>
+            <div id="text-output" class="output"></div>
+        </div>
+
+        <div class="test-panel">
+            <h2>Análise de Código</h2>
+            <div class="input-group">
+                <label for="code-input">Código:</label>
+                <textarea id="code-input" rows="5"></textarea>
+            </div>
+            <button onclick="testCodeAnalysis()">Analisar Código</button>
+            <div id="code-output" class="output"></div>
+        </div>
+
+        <div class="test-panel">
+            <h2>Criar Compromisso</h2>
+            <div class="input-group">
+                <label for="appointment-title">Título:</label>
+                <input type="text" id="appointment-title">
+            </div>
+            <div class="input-group">
+                <label for="appointment-date">Data:</label>
+                <input type="datetime-local" id="appointment-date">
+            </div>
+            <div class="input-group">
+                <label for="appointment-description">Descrição:</label>
+                <textarea id="appointment-description" rows="3"></textarea>
+            </div>
+            <button onclick="testCreateAppointment()">Criar Compromisso</button>
+            <div id="appointment-output" class="output"></div>
+        </div>
+
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        function addLog(message, isError = false) {
+            const log = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry${isError ? ' error' : ''}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function testTextGeneration() {
+            try {
+                const prompt = document.getElementById('text-prompt').value;
+                addLog(`Gerando texto para prompt: ${prompt}`);
+                
+                const response = await window.ipcRenderer.invoke('ai:create-text', prompt);
+                
+                if (response.success) {
+                    document.getElementById('text-output').textContent = response.data;
+                    addLog('Texto gerado com sucesso');
+                } else {
+                    throw new Error(response.error);
+                }
+            } catch (error) {
+                document.getElementById('text-output').textContent = `Erro: ${error.message}`;
+                addLog(`Erro ao gerar texto: ${error.message}`, true);
+            }
+        }
+
+        async function testCodeAnalysis() {
+            try {
+                const code = document.getElementById('code-input').value;
+                addLog('Analisando código');
+                
+                const response = await window.ipcRenderer.invoke('ai:analyze-code', code);
+                
+                if (response.success) {
+                    document.getElementById('code-output').textContent = response.data;
+                    addLog('Código analisado com sucesso');
+                } else {
+                    throw new Error(response.error);
+                }
+            } catch (error) {
+                document.getElementById('code-output').textContent = `Erro: ${error.message}`;
+                addLog(`Erro ao analisar código: ${error.message}`, true);
+            }
+        }
+
+        async function testCreateAppointment() {
+            try {
+                const details = {
+                    title: document.getElementById('appointment-title').value,
+                    date: document.getElementById('appointment-date').value,
+                    description: document.getElementById('appointment-description').value
+                };
+                
+                addLog(`Criando compromisso: ${details.title}`);
+                
+                const response = await window.ipcRenderer.invoke('ai:create-appointment', details);
+                
+                if (response.success) {
+                    document.getElementById('appointment-output').textContent = response.data;
+                    addLog('Compromisso criado com sucesso');
+                } else {
+                    throw new Error(response.error);
+                }
+            } catch (error) {
+                document.getElementById('appointment-output').textContent = `Erro: ${error.message}`;
+                addLog(`Erro ao criar compromisso: ${error.message}`, true);
+            }
+        }
+
+        // Inicialização
+        addLog('Interface de teste inicializada');
+    </script>
+</body>
+</html> 

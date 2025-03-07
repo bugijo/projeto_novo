@@ -15,6 +15,7 @@ const fs = require('fs');
 const integratedTestManager = require('./utils/integratedTestManager');
 const notificationManager = require('./utils/notificationManager');
 const taskExecutor = require('./utils/taskExecutor');
+const aiManager = require('./ai/aiManager');
 
 const logger = createLogger('[Main]');
 let mainWindow;
@@ -46,7 +47,7 @@ function createWindow() {
     };
 
     mainWindow = new BrowserWindow(windowConfig);
-    mainWindow.loadFile('src/ui/index.html');
+    mainWindow.loadFile(path.join(__dirname, 'ui/index.html'));
     
     // Remover menu padrão
     mainWindow.setMenu(null);
@@ -98,6 +99,10 @@ async function initialize() {
 
     // Inicia o sistema de backup automático
     autoBackup.startWatching();
+
+    // Inicializar o gerenciador de IA
+    await aiManager.initialize();
+    logger.info('Sistema de IA inicializado');
 
     // Criar janela principal
     createWindow();
@@ -251,6 +256,43 @@ ipcMain.handle('test-notification', async () => {
         'Teste de Notificação',
         'Se você recebeu esta mensagem, as notificações estão funcionando corretamente!'
     );
+});
+
+// Handlers para comunicação com a IA
+ipcMain.handle('ai:process', async (event, request) => {
+    try {
+        const response = await aiManager.processRequest(request);
+        return { success: true, data: response };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+});
+
+ipcMain.handle('ai:create-text', async (event, prompt) => {
+    try {
+        const response = await aiManager.createText(prompt);
+        return { success: true, data: response };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+});
+
+ipcMain.handle('ai:create-appointment', async (event, details) => {
+    try {
+        const response = await aiManager.createAppointment(details);
+        return { success: true, data: response };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+});
+
+ipcMain.handle('ai:analyze-code', async (event, code) => {
+    try {
+        const response = await aiManager.analyzeCode(code);
+        return { success: true, data: response };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
 });
 
 // Cleanup ao fechar
